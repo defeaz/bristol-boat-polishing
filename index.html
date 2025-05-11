@@ -44,12 +44,25 @@
       </p>
     </section>
 
-    <section id="contact">
-      <h2>Contact</h2>
-      <p><strong>Email:</strong> harbourshine03@gmail.com</p>
-      <p><strong>Phone:</strong> 07794 527 449</p>
-    </section>
-  </main>
+<section id="contact">
+  <h2>Contact</h2>
+  <p><strong>Email:</strong> <a href="mailto:hello@harbourshine.co.uk">hello@harbourshine.co.uk</a></p>
+  <p><strong>Phone:</strong> <a href="tel:+447794527449">07794 527 449</a></p>
+  
+  <h3>Request a Service</h3>
+  <form action="mailto:hello@harbourshine.co.uk" method="POST" enctype="text/plain">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="Name" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="Email" required><br><br>
+
+    <label for="message">Request Details:</label><br>
+    <textarea id="message" name="Message" rows="5" required></textarea><br><br>
+
+    <button type="submit">Send Request</button>
+  </form>
+</section>
 
   <footer>
     <p>&copy; 2025 Harbour Shine. All rights reserved.</p>
