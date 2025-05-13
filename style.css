@@ -96,19 +96,74 @@ h2 {
 }
 
 /* Services List */
-ul {
-  list-style: none;
-  padding-left: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 15px;
+#pricing {
+  background-color: #f0f8ff;
+  padding: 40px 20px;
+  border-radius: 10px;
+  text-align: center;
 }
 
-li {
-  background-color: #eaf6ff;
-  padding: 15px;
-  border-left: 5px solid #1a73e8;
+.pricing-table {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.package {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.package h3 {
+  color: #004c70;
+  margin-bottom: 10px;
+}
+
+.package .price {
+  font-size: 1.5rem;
+  color: #1a73e8;
+  margin-bottom: 15px;
+}
+
+.package ul {
+  list-style: none;
+  padding-left: 0;
+  text-align: left;
+}
+
+.package ul li {
+  margin: 8px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+.package ul li::before {
+  content: "✔";
+  color: #1a73e8;
+  position: absolute;
+  left: 0;
+}
+
+.download-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #004c70;
+  color: white;
+  text-decoration: none;
   border-radius: 5px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.download-btn:hover {
+  background-color: #1a73e8;
 }
 
 /* Contact Section */
