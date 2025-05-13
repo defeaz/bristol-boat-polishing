@@ -150,21 +150,18 @@ h2 {
   left: 0;
 }
 
-.download-btn {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #004c70;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
+
+/* Service Menu Link Styling */
+.service-menu-link {
   font-weight: bold;
-  transition: background 0.3s ease;
+  color: #1a73e8; /* Blue color */
+  text-decoration: none;
 }
 
-.download-btn:hover {
-  background-color: #1a73e8;
+.service-menu-link:hover {
+  text-decoration: underline; /* Underline on hover */
 }
+
 
 /* Contact Section */
 #contact p {
