@@ -36,17 +36,19 @@ header::before {
   z-index: 1;
 }
 
-header h1,
-header p {
-  position: relative;
-  z-index: 2;
-}
-
 header h1 {
+  font-family: 'Playfair Display', serif;
   font-size: 3rem;
   margin-bottom: 10px;
   letter-spacing: 2px;
 }
+
+header p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
 
 header p {
   font-size: 1.2rem;
