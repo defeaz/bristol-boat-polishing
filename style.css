@@ -32,7 +32,7 @@ header::before {
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 25, 50, 0.6);
+  background-color: rgba(0, 25, 50, 0.3); /* lighter overlay for sailboat visibility */
   z-index: 1;
 }
 
@@ -40,218 +40,17 @@ header {
   text-align: center;
   color: white;
   font-family: 'Montserrat', sans-serif;
+  position: relative;
+  z-index: 2; /* ensure text is above overlay */
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); /* subtle shadow for crispness */
 }
 
 header h1 {
   font-weight: 700;   /* bold but clean */
-  font-size: 2.2rem;  /* slightly smaller for less extravagance */
+  font-size: 2.5rem;
   margin: 0.25em 0;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  position: relative;
-  z-index: 2;
 }
 
 header p {
   font-weight: 400;
-  font-size: 1rem;
-  margin: 0;
-  letter-spacing: 0.05em;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  position: relative;
-  z-index: 2;
-}
-
-nav a {
-  color: white;
-  margin: 0 15px;
-  font-size: 1rem;
-  transition: color 0.3s;
-  position: relative;
-  z-index: 2;
-}
-
-nav a:hover {
-  color: #66ccff;
-}
-
-/* Main Sections */
-main {
-  padding: 40px 20px;
-  max-width: 1000px;
-  margin: auto;
-}
-
-section {
-  margin-bottom: 60px;
-  background-color: white;
-  border-radius: 10px;
-  padding: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #004c70;
-  border-bottom: 2px solid #004c70;
-  display: inline-block;
-}
-
-/* Services List */
-#pricing {
-  background-color: #f0f8ff;
-  padding: 40px 20px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.pricing-table {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin-top: 30px;
-  gap: 20px;
-}
-
-.package {
-  background-color: white;
-  border: 1px solid #ddd;
-  padding: 20px;
-  width: 300px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-.package h3 {
-  color: #004c70;
-  margin-bottom: 10px;
-}
-
-.package .price {
-  font-size: 1.5rem;
-  color: #1a73e8;
-  margin-bottom: 15px;
-}
-
-.package ul {
-  list-style: none;
-  padding-left: 0;
-  text-align: left;
-}
-
-.package ul li {
-  margin: 8px 0;
-  padding-left: 20px;
-  position: relative;
-}
-
-.package ul li::before {
-  content: "✔";
-  color: #1a73e8;
-  position: absolute;
-  left: 0;
-}
-
-/* Service Menu Link Styling */
-.service-menu-link {
-  font-weight: bold;
-  color: #1a73e8; /* Blue color */
-  text-decoration: none;
-}
-
-.service-menu-link:hover {
-  text-decoration: underline; /* Underline on hover */
-}
-
-/* Contact Section */
-#contact p {
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-form label {
-  font-weight: bold;
-}
-
-form input,
-form textarea {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-form button {
-  background-color: #004c70;
-  color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-form button:hover {
-  background-color: #0077aa;
-}
-
-input,
-textarea {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-button {
-  margin-top: 10px;
-  background-color: #004c70;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #1a73e8;
-}
-/* Footer */
-footer {
-  background-color: #003049;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  font-size: 0.9rem;
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-  header h1 {
-    font-size: 2rem;
-  }
-
-  nav {
-    flex-direction: column;
-  }
-
-  nav a {
-    margin: 10px 0;
-  }
-
-  section {
-    padding: 20px;
-  }
-}
+  font-size:
