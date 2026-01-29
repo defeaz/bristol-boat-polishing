@@ -271,3 +271,37 @@ footer {
     padding: 25px 20px;
   }
 }
+/* About Section Video */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto 0;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  background-color: #000;
+}
+
+.video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Subtle hover effect to match pricing cards */
+.video-wrapper:hover {
+  transform: translateY(-4px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* Mobile spacing */
+@media (max-width: 768px) {
+  .video-wrapper {
+    margin-top: 20px;
+    border-radius: 10px;
+  }
+}
+
