@@ -1,16 +1,12 @@
-
 .pressure-header::before {
-  background-color: rgba(0, 40, 20, 0.65); /* subtle green tone */
+  background-color: rgba(0, 40, 20, 0.65);
 }
+
 .pressure-header {
   background: url('https://www.keepitpristine.com/wp-content/uploads/2025/03/House-Power-Washing-Blog-Picture.jpg') no-repeat center center/cover;
 }
 
 /* Reset and Base Styles */
-#contact p {
-  text-align: center;
-  margin-bottom: 10px;
-}
 .subtitle {
   font-size: 1rem;
   color: #e0f3ff;
@@ -30,7 +26,7 @@ body {
   background-color: #f4faff;
   color: #333;
   line-height: 1.6;
-  text-align: center; /* keep overall centering */
+  text-align: center;
 }
 
 a {
@@ -51,7 +47,8 @@ header {
 header::before {
   content: "";
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 25, 50, 0.65);
@@ -124,7 +121,7 @@ h2 {
   padding-bottom: 8px;
 }
 
-/* Paragraphs: centred block, left-aligned text */
+/* Paragraphs */
 section p {
   max-width: 700px;
   margin: 0 auto 15px;
@@ -217,47 +214,52 @@ section p {
   text-decoration: underline;
 }
 
-/* Contact Form */
+/* Contact Section */
 #contact p {
-  margin-bottom: 12px;
+  text-align: center;
+  max-width: none;
+  margin: 0 0 12px;
   font-size: 1.1rem;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin: 20px auto 0;
-  max-width: 500px;
-}
-
-/* each row */
-.form-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
-}
-
-/* labels on the left */
-.form-row label {
-  width: 100px;
-  text-align: left;
-  font-weight: bold;
-  padding-top: 8px;
-}
-
-/* inputs fill the rest */
-.form-row input,
-.form-row textarea {
-  flex: 1;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
+  gap: 18px;
+  margin: 25px auto 0;
+  max-width: 700px;
   width: 100%;
 }
 
-/* button alignment */
+.form-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  align-items: start;
+  gap: 15px;
+  width: 100%;
+}
+
+.form-row label {
+  text-align: left;
+  font-weight: bold;
+  padding-top: 10px;
+}
+
+.form-row input,
+.form-row textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.form-row textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
 form button {
   background-color: #004c70;
   color: white;
@@ -267,12 +269,13 @@ form button {
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s ease;
-  align-self: flex-start;
+  align-self: center;
 }
 
 form button:hover {
   background-color: #1a73e8;
 }
+
 /* Footer */
 footer {
   background-color: #003049;
@@ -307,10 +310,11 @@ footer {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 
+/* Image link button */
 .image-link {
   position: relative;
   display: inline-block;
-  width: 220px; /* smaller */
+  width: 220px;
   margin: 20px auto;
   border-radius: 10px;
   overflow: hidden;
@@ -319,7 +323,7 @@ footer {
 
 .image-link img {
   width: 100%;
-  height: 140px; /* forces consistent button size */
+  height: 140px;
   object-fit: cover;
   display: block;
 }
@@ -337,12 +341,12 @@ footer {
   font-size: 0.85rem;
 }
 
-/* hover effect */
 .image-link:hover {
   transform: translateY(-3px);
   transition: 0.2s ease;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
 }
+
 /* Responsive */
 @media (max-width: 768px) {
   header h1 {
@@ -373,5 +377,22 @@ footer {
   .video-wrapper {
     margin-top: 20px;
     border-radius: 10px;
+  }
+
+  form {
+    max-width: 100%;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .form-row label {
+    padding-top: 0;
+  }
+
+  form button {
+    width: 100%;
   }
 }
