@@ -10,7 +10,7 @@ body {
   background-color: #f4faff;
   color: #333;
   line-height: 1.6;
-  text-align: left; /* FIXED: no global centering */
+  text-align: center; /* keep overall centering */
 }
 
 a {
@@ -65,7 +65,6 @@ nav {
   justify-content: center;
   flex-wrap: wrap;
   padding: 12px;
-  text-align: center;
 }
 
 nav a {
@@ -93,10 +92,9 @@ section {
   border-radius: 12px;
   padding: 40px 30px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-  text-align: left; /* FIXED: content aligns left */
 }
 
-/* Headings stay centred */
+/* Headings */
 h2 {
   font-size: 2.2rem;
   margin-bottom: 20px;
@@ -104,14 +102,13 @@ h2 {
   border-bottom: 3px solid #1a73e8;
   display: inline-block;
   padding-bottom: 8px;
-  text-align: center;
-  width: 100%;
 }
 
-/* Paragraphs */
+/* Paragraphs: centred block, left-aligned text */
 section p {
-  margin-bottom: 15px;
   max-width: 700px;
+  margin: 0 auto 15px;
+  text-align: left;
 }
 
 /* Services List */
@@ -120,7 +117,7 @@ section p {
   padding-left: 20px;
   text-align: left;
   max-width: 700px;
-  margin-top: 20px;
+  margin: 20px auto 0;
 }
 
 #services ul li {
@@ -151,7 +148,6 @@ section p {
   border-radius: 14px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
-  text-align: left;
 }
 
 .package:hover {
@@ -174,6 +170,7 @@ section p {
 .package ul {
   list-style: none;
   padding-left: 0;
+  text-align: left;
 }
 
 .package ul li {
@@ -209,13 +206,14 @@ section p {
 form {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* FIXED */
+  align-items: center;
   gap: 15px;
   margin-top: 20px;
 }
 
 form label {
   font-weight: bold;
+  align-self: flex-start;
 }
 
 form input,
