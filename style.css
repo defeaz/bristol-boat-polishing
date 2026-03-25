@@ -1,4 +1,23 @@
 /* Reset and Base Styles */
+
+/* Fix text alignment in content sections */
+section {
+  text-align: left;
+}
+
+/* Keep headings styled but not awkwardly centered */
+section h2 {
+  text-align: left;
+}
+
+/* Make paragraphs readable */
+section p {
+  text-align: left;
+  max-width: 700px;
+  margin: 0 auto 15px;
+}
+
+
 * {
   margin: 0;
   padding: 0;
