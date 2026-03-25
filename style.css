@@ -311,7 +311,35 @@ footer {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
+.image-link {
+  position: relative;
+  display: inline-block;
+  max-width: 300px;
+  margin: 30px auto;
+}
 
+.image-link img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+
+.image-link span {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: white;
+  font-weight: bold;
+  background: rgba(0,0,0,0.6);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.image-link:hover img {
+  transform: scale(1.03);
+  transition: 0.3s;
+}
 /* Responsive */
 @media (max-width: 768px) {
   header h1 {
