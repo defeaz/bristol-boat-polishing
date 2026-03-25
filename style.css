@@ -1,16 +1,27 @@
 /* Reset and Base Styles */
 /* Keep headings centred */
+/* Keep headings centred */
 h2 {
   text-align: center;
 }
 
-/* Left-align only body text inside sections */
+/* Left-align only the written content inside sections */
 section p,
 section li {
   text-align: left;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+}
+
+/* Make paragraph blocks start from the left, not the centre */
+section p {
+  margin: 0 0 15px 0;
+  max-width: none;
+}
+
+/* Keep service and package lists left aligned too */
+section ul,
+section ol {
+  text-align: left;
+  margin-left: 0;
 }
 
 * {
