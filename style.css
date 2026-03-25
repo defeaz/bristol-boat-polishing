@@ -291,7 +291,7 @@ footer {
 .video-wrapper {
   position: relative;
   width: 100%;
-  max-width: 900px;
+  max-width: 765px;
   margin: 30px auto 0;
   aspect-ratio: 16 / 9;
   border-radius: 14px;
