@@ -10,7 +10,7 @@ body {
   background-color: #f4faff;
   color: #333;
   line-height: 1.6;
-  text-align: left; /* FIXED */
+  text-align: left; /* FIXED: no global centering */
 }
 
 a {
@@ -93,7 +93,7 @@ section {
   border-radius: 12px;
   padding: 40px 30px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-  text-align: left; /* KEY FIX */
+  text-align: left; /* FIXED: content aligns left */
 }
 
 /* Headings stay centred */
