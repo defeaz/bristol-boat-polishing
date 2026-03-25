@@ -317,28 +317,41 @@ footer {
   max-width: 300px;
   margin: 30px auto;
 }
+.image-link {
+  position: relative;
+  display: inline-block;
+  width: 220px; /* smaller */
+  margin: 20px auto;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
 
 .image-link img {
   width: 100%;
-  border-radius: 12px;
+  height: 140px; /* forces consistent button size */
+  object-fit: cover;
   display: block;
 }
 
 .image-link span {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
   color: white;
-  font-weight: bold;
-  background: rgba(0,0,0,0.6);
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 0.9rem;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.65);
+  padding: 8px 6px;
+  font-size: 0.85rem;
 }
 
-.image-link:hover img {
-  transform: scale(1.03);
-  transition: 0.3s;
+/* hover effect */
+.image-link:hover {
+  transform: translateY(-3px);
+  transition: 0.2s ease;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
 }
 /* Responsive */
 @media (max-width: 768px) {
