@@ -1,5 +1,8 @@
 /* Reset and Base Styles */
-
+#contact p {
+  text-align: center;
+  margin-bottom: 10px;
+}
 .subtitle {
   font-size: 1rem;
   color: #e0f3ff;
