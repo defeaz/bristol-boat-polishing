@@ -1,4 +1,13 @@
 /* Reset and Base Styles */
+
+.subtitle {
+  font-size: 1rem;
+  color: #e0f3ff;
+  margin-top: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 * {
   margin: 0;
   padding: 0;
