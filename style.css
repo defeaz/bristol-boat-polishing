@@ -311,12 +311,7 @@ footer {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
-.image-link {
-  position: relative;
-  display: inline-block;
-  max-width: 300px;
-  margin: 30px auto;
-}
+
 .image-link {
   position: relative;
   display: inline-block;
