@@ -1,29 +1,4 @@
 /* Reset and Base Styles */
-/* Keep headings centred */
-/* Keep headings centred */
-h2 {
-  text-align: center;
-}
-
-/* Left-align only the written content inside sections */
-section p,
-section li {
-  text-align: left;
-}
-
-/* Make paragraph blocks start from the left, not the centre */
-section p {
-  margin: 0 0 15px 0;
-  max-width: none;
-}
-
-/* Keep service and package lists left aligned too */
-section ul,
-section ol {
-  text-align: left;
-  margin-left: 0;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -35,7 +10,7 @@ body {
   background-color: #f4faff;
   color: #333;
   line-height: 1.6;
-  text-align: center;
+  text-align: left; /* FIXED */
 }
 
 a {
@@ -59,7 +34,7 @@ header::before {
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 25, 50, 0.65); /* Darkens just the background */
+  background-color: rgba(0, 25, 50, 0.65);
   z-index: 1;
 }
 
@@ -90,6 +65,7 @@ nav {
   justify-content: center;
   flex-wrap: wrap;
   padding: 12px;
+  text-align: center;
 }
 
 nav a {
@@ -117,8 +93,10 @@ section {
   border-radius: 12px;
   padding: 40px 30px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  text-align: left; /* KEY FIX */
 }
 
+/* Headings stay centred */
 h2 {
   font-size: 2.2rem;
   margin-bottom: 20px;
@@ -126,18 +104,24 @@ h2 {
   border-bottom: 3px solid #1a73e8;
   display: inline-block;
   padding-bottom: 8px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Paragraphs */
+section p {
+  margin-bottom: 15px;
+  max-width: 700px;
 }
 
 /* Services List */
-/* Services Section Fix */
 #services ul {
   list-style-type: disc;
-  padding-left: 40px;
+  padding-left: 20px;
   text-align: left;
-  max-width: 600px;
-  margin: 20px auto 0;
+  max-width: 700px;
+  margin-top: 20px;
 }
-
 
 #services ul li {
   margin-bottom: 10px;
@@ -167,6 +151,7 @@ h2 {
   border-radius: 14px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
+  text-align: left;
 }
 
 .package:hover {
@@ -189,7 +174,6 @@ h2 {
 .package ul {
   list-style: none;
   padding-left: 0;
-  text-align: left;
 }
 
 .package ul li {
@@ -225,14 +209,13 @@ h2 {
 form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* FIXED */
   gap: 15px;
   margin-top: 20px;
 }
 
 form label {
   font-weight: bold;
-  align-self: flex-start;
 }
 
 form input,
@@ -269,7 +252,32 @@ footer {
   font-size: 0.9rem;
 }
 
-/* Responsive Design */
+/* Video */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto 0;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  background-color: #000;
+}
+
+.video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-wrapper:hover {
+  transform: translateY(-4px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   header h1 {
     font-size: 2.3rem;
@@ -295,38 +303,9 @@ footer {
   section {
     padding: 25px 20px;
   }
-}
-/* About Section Video */
-.video-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 900px;
-  margin: 30px auto 0;
-  aspect-ratio: 16 / 9;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
-  background-color: #000;
-}
 
-.video-wrapper iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* Subtle hover effect to match pricing cards */
-.video-wrapper:hover {
-  transform: translateY(-4px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-}
-
-/* Mobile spacing */
-@media (max-width: 768px) {
   .video-wrapper {
     margin-top: 20px;
     border-radius: 10px;
   }
 }
-
