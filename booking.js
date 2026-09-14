@@ -4,6 +4,7 @@ const boatBookingStatus = document.querySelector('#booking-status');
 const boatService = document.querySelector('#booking-service');
 const regularFrequency = document.querySelector('#regular-frequency');
 const frequencySelect = regularFrequency.querySelector('select');
+const bookingApi = 'https://caravanrevival.com/api';
 
 function validUkPostcode(postcode) {
   return /^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/.test(postcode);
@@ -44,7 +45,7 @@ document
 
     try {
       const params = new URLSearchParams({ postcode, service });
-      const response = await fetch(`/api/availability?${params}`);
+      const response = await fetch(`${bookingApi}/availability?${params}`);
       const data = await response.json();
 
       if (!response.ok) {
@@ -75,7 +76,7 @@ boatBookingForm.addEventListener('submit', async (event) => {
   const payload = Object.fromEntries(new FormData(boatBookingForm));
 
   try {
-    const response = await fetch('/api/create-booking', {
+    const response = await fetch(`${bookingApi}/create-booking`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(payload)

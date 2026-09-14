@@ -19,6 +19,10 @@
   padding: 0;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 88px;
@@ -412,6 +416,14 @@ h2 {
   font-size: 0.93rem;
 }
 
+.service-card-image {
+  display: block;
+  height: 112px;
+  margin: -38px -18px 25px;
+  object-fit: cover;
+  width: calc(100% + 36px);
+}
+
 .featured-card p {
   color: rgba(255, 255, 255, 0.7);
 }
@@ -698,8 +710,9 @@ h2 {
 
 .finish-detail {
   display: grid;
-  grid-template-columns: 1.5fr 0.5fr;
-  margin-top: 22px;
+  grid-template-columns: 1.55fr 0.45fr;
+  margin: 0 auto;
+  max-width: 1050px;
 }
 
 .finish-detail img {
