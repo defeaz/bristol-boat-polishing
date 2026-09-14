@@ -469,7 +469,7 @@ h2 {
 }
 
 .coppercoat-feature {
-  align-items: center;
+  align-items: start;
   display: grid;
   gap: clamp(42px, 7vw, 90px);
   grid-template-columns: 1.15fr 0.85fr;
@@ -719,9 +719,21 @@ h2 {
 
 .finish-detail img {
   display: block;
-  height: min(58vw, 610px);
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   width: 100%;
+}
+
+.finish-detail figcaption {
+  background: var(--navy-950);
+  color: var(--white);
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 15px 20px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .finish-detail figcaption {
