@@ -295,11 +295,7 @@
     <section class="work-showcase section-light" id="recent-work">
       <div class="section-heading">
         <p class="eyebrow navy">Recent work</p>
-        <h2>Antifouling, polishing and detailing</h2>
-        <p>
-          A recent cruiser brought back with fresh antifoul, polished
-          topsides and restored propellers.
-        </p>
+        <h2>Hull renovation on Princess 380</h2>
       </div>
 
       <figure class="finish-detail">
@@ -308,9 +304,6 @@
           alt="Finished polished hull, fresh blue antifoul and polished bronze propellers"
           loading="lazy"
         >
-        <figcaption>
-          Finished hull with fresh antifoul and polished propellers
-        </figcaption>
       </figure>
     </section>
 
@@ -568,7 +561,7 @@
           </label>
         </div>
 
-        <label id="regular-frequency" hidden>
+        <label id="regular-frequency" style="display: none;">
           How often would you like regular cleaning?
           <select name="frequency" disabled>
             <option value="Monthly">Monthly</option>
@@ -577,33 +570,49 @@
           </select>
         </label>
 
-        <div class="booking-two">
-          <label>
-            Marina or location
-            <input name="location" placeholder="e.g. Portishead Marina" required>
-          </label>
-
-          <label>
-            Cleaning postcode
-            <input
-              name="postcode"
-              autocomplete="postal-code"
-              placeholder="e.g. BS20 7XU"
-              required
-            >
-          </label>
-        </div>
+        <label>
+          Name of marina or postcode
+          <input
+            name="locationQuery"
+            autocomplete="postal-code"
+            placeholder="e.g. Portishead Marina or BS20 7DF"
+            required
+          >
+        </label>
 
         <div class="booking-two">
           <label>
             Boat name, make and model
             <input name="model" placeholder="e.g. Princess 38, Mirage" required>
           </label>
+        </div>
 
-          <label>
-            Length in feet
-            <input name="length" type="number" min="10" max="150" step="1" placeholder="38" required>
-          </label>
+        <div class="boat-length-picker">
+          <div class="boat-length-heading">
+            <label for="boat-length">Boat length</label>
+            <output id="boat-length-output" for="boat-length">38 ft</output>
+          </div>
+
+          <div class="boat-length-visual" aria-hidden="true">
+            <img id="classic-boat-size" src="classic-boat-length.png" alt="">
+          </div>
+
+          <input
+            id="boat-length"
+            class="boat-length-range"
+            name="length"
+            type="range"
+            min="10"
+            max="100"
+            step="1"
+            value="38"
+            required
+          >
+
+          <div class="boat-length-limits" aria-hidden="true">
+            <span>10 ft</span>
+            <span>100 ft</span>
+          </div>
         </div>
 
         <button class="button booking-find" type="button" id="find-boat-dates">

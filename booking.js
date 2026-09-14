@@ -5,9 +5,15 @@ const boatService = document.querySelector('#booking-service');
 const regularFrequency = document.querySelector('#regular-frequency');
 const frequencySelect = regularFrequency.querySelector('select');
 const bookingApi = 'https://caravanrevival.com/api';
+const boatLength = document.querySelector('#boat-length');
+const boatLengthOutput = document.querySelector('#boat-length-output');
+const classicBoat = document.querySelector('#classic-boat-size');
 
-function validUkPostcode(postcode) {
-  return /^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/.test(postcode);
+function updateBoatLength() {
+  const feet = Number(boatLength.value);
+  const scale = 18 + ((feet - 10) / 90) * 82;
+  boatLengthOutput.textContent = `${feet} ft`;
+  classicBoat.style.width = `${scale}%`;
 }
 
 function resetDates() {
@@ -17,34 +23,37 @@ function resetDates() {
 
 function updateArrangement() {
   const regular = boatService.value === 'boat-regular';
-  regularFrequency.hidden = !regular;
+  regularFrequency.style.display = regular ? 'flex' : 'none';
   frequencySelect.disabled = !regular;
   resetDates();
 }
 
 boatBookingForm
-  .querySelectorAll('[name="postcode"], [name="service"]')
+  .querySelectorAll('[name="locationQuery"], [name="service"]')
   .forEach((field) => field.addEventListener('change', resetDates));
 
 boatService.addEventListener('change', updateArrangement);
+boatLength.addEventListener('input', updateBoatLength);
+updateArrangement();
+updateBoatLength();
 
 document
   .querySelector('#find-boat-dates')
   .addEventListener('click', async () => {
-    const postcode = boatBookingForm.postcode.value.trim().toUpperCase();
+    const location = boatBookingForm.locationQuery.value.trim();
     const service = boatService.value;
 
     resetDates();
 
-    if (!validUkPostcode(postcode)) {
-      boatBookingStatus.textContent = 'Please enter a complete UK postcode.';
+    if (location.length < 3) {
+      boatBookingStatus.textContent = 'Please enter a marina name or complete postcode.';
       return;
     }
 
     boatBookingStatus.textContent = 'Checking nearby availability…';
 
     try {
-      const params = new URLSearchParams({ postcode, service });
+      const params = new URLSearchParams({ location, service });
       const response = await fetch(`${bookingApi}/availability?${params}`);
       const data = await response.json();
 
