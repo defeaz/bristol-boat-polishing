@@ -158,11 +158,12 @@
       <a href="coppercoat-bristol.html">Coppercoat</a>
       <a href="#about">About</a>
       <a href="#pricing">Prices</a>
+      <a href="#recent-work">Our work</a>
       <a href="#reviews">Reviews</a>
       <a href="#commercial">Commercial</a>
 
-      <a class="nav-cta" href="#contact">
-        Get a quote
+      <a class="nav-cta" href="#book">
+        Book a clean
       </a>
     </div>
   </nav>
@@ -195,8 +196,8 @@
       </p>
 
       <div class="hero-actions">
-        <a class="button button-primary" href="#contact">
-          Request a quote
+        <a class="button button-primary" href="#book">
+          Book a clean
         </a>
 
         <a class="button button-ghost" href="tel:+447794527449">
@@ -275,6 +276,73 @@
         <li>Pontoon & marina cleaning</li>
         <li>Canvas re-waterproofing</li>
       </ul>
+    </section>
+
+    <section class="work-showcase section-light" id="recent-work">
+      <div class="section-heading">
+        <p class="eyebrow navy">Recent work</p>
+        <h2>Antifouling, polishing and detailing</h2>
+        <p>
+          A recent cruiser brought back with fresh antifoul, polished
+          topsides and restored propellers.
+        </p>
+      </div>
+
+      <div class="work-process-grid">
+        <figure class="work-process-card work-process-wide">
+          <img
+            src="antifouling-in-progress.jpg"
+            alt="Fresh antifoul being applied carefully to a boat hull"
+            loading="lazy"
+          >
+          <figcaption>Careful preparation and antifoul application</figcaption>
+        </figure>
+
+        <figure class="work-process-card">
+          <img
+            src="interior-boat-detailing.jpg"
+            alt="Harbour Shine carrying out detailed interior cleaning on a motor yacht"
+            loading="lazy"
+          >
+          <figcaption>Hands-on interior detailing</figcaption>
+        </figure>
+      </div>
+
+      <div class="before-after-heading">
+        <p class="eyebrow navy">Before &amp; after</p>
+        <h3>Hull, antifoul and propeller restoration</h3>
+      </div>
+
+      <div class="before-after-grid">
+        <figure class="comparison-card">
+          <div class="image-label">Before</div>
+          <img
+            src="antifoul-polish-before.jpeg"
+            alt="Motor cruiser before hull polishing and antifouling"
+            loading="lazy"
+          >
+        </figure>
+
+        <figure class="comparison-card">
+          <div class="image-label image-label-after">After</div>
+          <img
+            src="antifoul-polish-after.jpeg"
+            alt="Motor cruiser after hull polishing, antifouling and propeller polishing"
+            loading="lazy"
+          >
+        </figure>
+      </div>
+
+      <figure class="finish-detail">
+        <img
+          src="antifoul-polish-finished-closeup.jpeg"
+          alt="Finished polished hull, fresh blue antifoul and polished bronze propellers"
+          loading="lazy"
+        >
+        <figcaption>
+          Finished hull with fresh antifoul and polished propellers
+        </figcaption>
+      </figure>
     </section>
 
     <section
@@ -493,6 +561,137 @@
       </a>
     </section>
 
+    <section class="booking section-navy" id="book">
+      <div class="booking-copy">
+        <p class="eyebrow">Book online</p>
+        <h2>Book a one-off or regular clean</h2>
+        <p>
+          Enter the boat's postcode and choose the type of clean. Dates are
+          offered around existing Harbour Shine and Caravan Revival work to
+          keep travel practical.
+        </p>
+
+        <div class="booking-capacity">
+          <strong>£30 booking deposit</strong>
+          <span>Taken securely when your date is confirmed.</span>
+          <small>The cleaning price is agreed from your boat details and condition.</small>
+        </div>
+      </div>
+
+      <form id="booking-form" class="booking-form">
+        <div class="booking-step">
+          <span>1</span>
+          <h3>Boat and location</h3>
+        </div>
+
+        <div class="booking-two">
+          <label>
+            Cleaning arrangement
+            <select name="service" id="booking-service" required>
+              <option value="boat-oneoff">One-off clean</option>
+              <option value="boat-regular">Regular cleaning</option>
+            </select>
+          </label>
+
+          <label>
+            Boat type
+            <select name="vehicleType" required>
+              <option>Motor cruiser</option>
+              <option>Sailing yacht</option>
+              <option>Narrowboat</option>
+              <option>Canal boat</option>
+              <option>Other boat</option>
+            </select>
+          </label>
+        </div>
+
+        <label id="regular-frequency" hidden>
+          How often would you like regular cleaning?
+          <select name="frequency" disabled>
+            <option value="Monthly">Monthly</option>
+            <option value="Every two months">Every two months</option>
+            <option value="Every three months">Every three months</option>
+          </select>
+        </label>
+
+        <div class="booking-two">
+          <label>
+            Marina or location
+            <input name="location" placeholder="e.g. Portishead Marina" required>
+          </label>
+
+          <label>
+            Cleaning postcode
+            <input
+              name="postcode"
+              autocomplete="postal-code"
+              placeholder="e.g. BS20 7XU"
+              required
+            >
+          </label>
+        </div>
+
+        <div class="booking-two">
+          <label>
+            Boat name, make and model
+            <input name="model" placeholder="e.g. Princess 38, Mirage" required>
+          </label>
+
+          <label>
+            Length in feet
+            <input name="length" type="number" min="10" max="150" step="1" placeholder="38" required>
+          </label>
+        </div>
+
+        <button class="button booking-find" type="button" id="find-boat-dates">
+          Show available dates
+        </button>
+
+        <p id="booking-status" class="booking-status" aria-live="polite"></p>
+
+        <div id="boat-booking-fields" hidden>
+          <label>
+            Available date
+            <select name="date" id="boat-date" required></select>
+          </label>
+
+          <div class="booking-two">
+            <label>
+              Your name
+              <input name="name" autocomplete="name" required>
+            </label>
+
+            <label>
+              Email
+              <input type="email" name="email" autocomplete="email" required>
+            </label>
+          </div>
+
+          <label>
+            Phone
+            <input type="tel" name="phone" autocomplete="tel" required>
+          </label>
+
+          <label class="booking-check">
+            <input type="checkbox" required>
+            <span>
+              I have permission to arrange work on the boat and can provide
+              access to water and electricity at the location.
+            </span>
+          </label>
+
+          <div class="booking-total">
+            <span>Due now</span>
+            <strong>£30 deposit</strong>
+          </div>
+
+          <button class="button booking-submit" type="submit">
+            Pay £30 deposit &amp; confirm
+          </button>
+        </div>
+      </form>
+    </section>
+
     <section class="contact section-light" id="contact">
       <div class="contact-details">
         <p class="eyebrow navy">
@@ -632,5 +831,6 @@
     document.getElementById('year').textContent =
       new Date().getFullYear();
   </script>
+  <script src="booking.js"></script>
 </body>
 </html>
