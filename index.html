@@ -534,7 +534,7 @@
         <div class="booking-capacity">
           <strong>£30 booking deposit</strong>
           <span>Taken securely when your date is confirmed.</span>
-          <small>The cleaning price is agreed from your boat details and condition.</small>
+          <small>Your full cleaning price is shown before you pay the deposit.</small>
         </div>
       </div>
 
@@ -548,8 +548,9 @@
           <label>
             Cleaning arrangement
             <select name="service" id="booking-service" required>
-              <option value="boat-oneoff">One-off clean</option>
-              <option value="boat-regular">Regular cleaning</option>
+              <option value="boat-regular">Regular Wash</option>
+              <option value="boat-shine">Shine &amp; Protect</option>
+              <option value="boat-renovation">Hull Renovation</option>
             </select>
           </label>
 
@@ -571,7 +572,6 @@
             <option value="No interior cleaning">No interior cleaning</option>
             <option value="Interior clean">Interior clean</option>
             <option value="Full interior detail">Full interior detail</option>
-            <option value="Interior only">Interior only</option>
           </select>
         </label>
 
@@ -608,7 +608,7 @@
           </div>
 
           <div class="boat-length-visual" aria-hidden="true">
-            <img id="classic-boat-size" src="classic-boat-length.png" alt="">
+            <img id="classic-boat-size" src="boat-line-30-39.png" alt="">
           </div>
 
           <input
@@ -634,6 +634,26 @@
         </button>
 
         <p id="booking-status" class="booking-status" aria-live="polite"></p>
+
+        <div id="boat-price" class="boat-price" hidden>
+          <div class="boat-price-row">
+            <span id="boat-price-service-label">Service</span>
+            <strong id="boat-price-service">£0</strong>
+          </div>
+          <div class="boat-price-row" id="boat-price-interior-row">
+            <span>Interior</span>
+            <strong id="boat-price-interior">£0</strong>
+          </div>
+          <div class="boat-price-row" id="boat-price-travel-row">
+            <span>Travel</span>
+            <strong id="boat-price-travel">Included</strong>
+          </div>
+          <div class="boat-price-total">
+            <span>Total cleaning price</span>
+            <strong id="boat-price-total">£0</strong>
+          </div>
+          <small>Only the £30 deposit is charged now. The remaining balance is due after the work.</small>
+        </div>
 
         <div id="boat-booking-fields" hidden>
           <label>

@@ -8,17 +8,48 @@ const bookingApi = 'https://caravanrevival.com/api';
 const boatLength = document.querySelector('#boat-length');
 const boatLengthOutput = document.querySelector('#boat-length-output');
 const classicBoat = document.querySelector('#classic-boat-size');
+const boatPrice = document.querySelector('#boat-price');
+const boatImages = [
+  [19, 'boat-line-10-19.png'],
+  [29, 'boat-line-20-29.png'],
+  [39, 'boat-line-30-39.png'],
+  [59, 'boat-line-40-59.png'],
+  [79, 'boat-line-60-79.png'],
+  [100, 'boat-line-80-100.png']
+];
 
 function updateBoatLength() {
   const feet = Number(boatLength.value);
-  const scale = 18 + ((feet - 10) / 90) * 82;
   boatLengthOutput.textContent = `${feet} ft`;
-  classicBoat.style.width = `${scale}%`;
+  classicBoat.src = boatImages.find(([maximum]) => feet <= maximum)[1];
+  boatLength.style.setProperty('--range-progress', `${((feet - 10) / 90) * 100}%`);
 }
 
 function resetDates() {
   boatBookingFields.hidden = true;
+  boatPrice.hidden = true;
   document.querySelector('#boat-date').innerHTML = '';
+}
+
+function money(value) {
+  return new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+    maximumFractionDigits: 0
+  }).format(value);
+}
+
+function showQuote(quote) {
+  document.querySelector('#boat-price-service-label').textContent = quote.serviceLabel;
+  document.querySelector('#boat-price-service').textContent = money(quote.servicePrice);
+  document.querySelector('#boat-price-interior').textContent = quote.interiorPrice
+    ? money(quote.interiorPrice)
+    : 'Not selected';
+  document.querySelector('#boat-price-travel').textContent = quote.travelPrice
+    ? money(quote.travelPrice)
+    : 'Included';
+  document.querySelector('#boat-price-total').textContent = money(quote.total);
+  boatPrice.hidden = false;
 }
 
 function updateArrangement() {
@@ -29,11 +60,14 @@ function updateArrangement() {
 }
 
 boatBookingForm
-  .querySelectorAll('[name="locationQuery"], [name="service"]')
+  .querySelectorAll('[name="locationQuery"], [name="service"], [name="interiorService"]')
   .forEach((field) => field.addEventListener('change', resetDates));
 
 boatService.addEventListener('change', updateArrangement);
-boatLength.addEventListener('input', updateBoatLength);
+boatLength.addEventListener('input', () => {
+  updateBoatLength();
+  resetDates();
+});
 updateArrangement();
 updateBoatLength();
 
@@ -53,13 +87,20 @@ document
     boatBookingStatus.textContent = 'Checking nearby availability…';
 
     try {
-      const params = new URLSearchParams({ location, service });
+      const params = new URLSearchParams({
+        location,
+        service,
+        length: boatLength.value,
+        interiorService: boatBookingForm.interiorService.value
+      });
       const response = await fetch(`${bookingApi}/availability?${params}`);
       const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.error || 'Unable to check availability.');
       }
+
+      showQuote(data.quote);
 
       if (!data.dates.length) {
         throw new Error(
