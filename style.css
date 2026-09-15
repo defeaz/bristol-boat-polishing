@@ -494,6 +494,11 @@ h2 {
   margin-bottom: 17px;
 }
 
+.coppercoat-feature-copy {
+  align-self: start;
+  padding-top: 0;
+}
+
 .section-navy {
   background: var(--navy-950);
   color: var(--white);
