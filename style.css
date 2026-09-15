@@ -379,8 +379,9 @@ h2 {
 .service-card {
   background: var(--white);
   border: 1px solid var(--line);
-  min-height: 290px;
-  padding: 34px;
+  min-height: 430px;
+  overflow: hidden;
+  padding: 0 28px 30px;
   position: relative;
 }
 
@@ -392,15 +393,21 @@ h2 {
 }
 
 .service-number {
+  background: rgba(255, 255, 255, 0.94);
   color: var(--blue-600);
   display: block;
   font-size: 0.7rem;
   font-weight: 700;
+  left: 18px;
   letter-spacing: 0.15em;
-  margin-bottom: 65px;
+  padding: 8px 10px;
+  position: absolute;
+  top: 16px;
+  z-index: 2;
 }
 
 .featured-card .service-number {
+  background: rgba(0, 20, 47, 0.92);
   color: var(--silver);
 }
 
@@ -417,14 +424,19 @@ h2 {
 }
 
 .service-card-image {
-  border: 1px solid var(--line);
   display: block;
-  height: 62px;
+  height: 190px;
+  margin: 0 -28px 28px;
   object-fit: cover;
-  position: absolute;
-  right: 26px;
-  top: 27px;
-  width: 88px;
+  width: calc(100% + 56px);
+}
+
+.service-image-polishing {
+  object-position: 58% center;
+}
+
+.service-image-coppercoat {
+  object-position: 47% center;
 }
 
 .featured-card p {
@@ -433,7 +445,6 @@ h2 {
 
 .coppercoat-card {
   border-top: 5px solid #9c5f37;
-  padding-top: 30px;
 }
 
 .card-link {
@@ -1528,8 +1539,8 @@ footer > p:not(.copyright) {
     transform: none;
   }
 
-  .service-number {
-    margin-bottom: 35px;
+  .service-card-image {
+    height: 240px;
   }
 
   .detail-list {
