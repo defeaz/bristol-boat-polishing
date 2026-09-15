@@ -104,12 +104,11 @@ async function localQuote(locationInput, service, length, interiorService) {
   const band = localBoatPrices.find(([maximum]) => feet <= maximum);
   const serviceDetails = {
     'boat-regular': [1, 'Regular Wash'],
-    'boat-shine': [2, 'Shine & Protect'],
-    'boat-renovation': [3, 'Hull Renovation']
+    'boat-oneoff': [2, 'Shine & Protect']
   }[service];
   if (!band || !serviceDetails) throw new Error('Please choose a valid cleaning service.');
   const servicePrice = band[serviceDetails[0]];
-  const interiorBand = feet <= 29 ? [100, 200] : feet <= 49 ? [150, 300] : feet <= 69 ? [225, 450] : [300, 600];
+  const interiorBand = feet <= 49 ? [80, 250] : feet <= 69 ? [120, 375] : [160, 500];
   const interiorPrice = interiorService === 'Interior clean' ? interiorBand[0]
     : interiorService === 'Full interior detail' ? interiorBand[1] : 0;
   const roadMiles = milesBetween(
