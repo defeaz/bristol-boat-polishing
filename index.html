@@ -733,26 +733,12 @@
       </div>
 
       <form
-        action="https://formsubmit.co/gus.ferranti@gmail.com"
-        method="POST"
+        id="enquiry-form"
       >
         <input
           type="hidden"
-          name="_honey"
-          tabindex="-1"
-          autocomplete="off"
-        >
-
-        <input
-          type="hidden"
-          name="_template"
-          value="box"
-        >
-
-        <input
-          type="hidden"
-          name="_subject"
-          value="New Harbour Shine website enquiry"
+          name="business"
+          value="Harbour Shine"
         >
 
         <div class="field-group">
@@ -798,6 +784,7 @@
         >
           Send request
         </button>
+        <p id="enquiry-status" aria-live="polite"></p>
       </form>
     </section>
   </main>
@@ -849,6 +836,7 @@
     document.getElementById('year').textContent =
       new Date().getFullYear();
   </script>
-  <script src="booking.js?v=10"></script>
+  <script src="booking-config.js"></script>
+  <script src="booking.js?v=11"></script>
 </body>
 </html>

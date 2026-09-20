@@ -4,7 +4,7 @@ const boatBookingStatus = document.querySelector('#booking-status');
 const boatService = document.querySelector('#booking-service');
 const regularFrequency = document.querySelector('#regular-frequency');
 const frequencySelect = regularFrequency.querySelector('select');
-const bookingApi = 'https://caravanrevival.com/api';
+const bookingApi = window.BOOKING_API_URL;
 const boatLength = document.querySelector('#boat-length');
 const boatLengthOutput = document.querySelector('#boat-length-output');
 const classicBoat = document.querySelector('#classic-boat-size');
@@ -163,10 +163,14 @@ document
         length: boatLength.value,
         interiorService: boatBookingForm.interiorService.value
       });
-      const response = await fetch(`${bookingApi}/availability?${params}`);
+      if (!/^https:\/\/script\.google\.com\//.test(bookingApi)) {
+        throw new Error('Online booking is being updated. Please send an enquiry for now.');
+      }
+      params.set('action', 'availability');
+      const response = await fetch(`${bookingApi}?${params}`);
       const data = await response.json();
 
-      if (!response.ok) {
+      if (!response.ok || data.error) {
         throw new Error(data.error || 'Unable to check availability.');
       }
 
@@ -202,14 +206,17 @@ boatBookingForm.addEventListener('submit', async (event) => {
   const payload = Object.fromEntries(new FormData(boatBookingForm));
 
   try {
-    const response = await fetch(`${bookingApi}/create-booking`, {
+    if (!/^https:\/\/script\.google\.com\//.test(bookingApi)) {
+      throw new Error('Online booking is being updated. Please send an enquiry for now.');
+    }
+    const response = await fetch(bookingApi, {
       method: 'POST',
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload)
     });
     const data = await response.json();
 
-    if (!response.ok) {
+    if (!response.ok || data.error || !data.url) {
       throw new Error(data.error || 'Unable to complete the booking.');
     }
 
@@ -217,5 +224,31 @@ boatBookingForm.addEventListener('submit', async (event) => {
   } catch (error) {
     boatBookingStatus.textContent =
       error.message || 'Unable to complete the booking. Please try again.';
+  }
+});
+
+document.querySelector('#enquiry-form')?.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const enquiryForm = event.currentTarget;
+  const enquiryStatus = document.querySelector('#enquiry-status');
+  enquiryStatus.textContent = 'Sending…';
+
+  try {
+    if (!/^https:\/\/script\.google\.com\//.test(bookingApi)) {
+      throw new Error('Online enquiries are being updated. Please email or call for now.');
+    }
+    const payload = Object.fromEntries(new FormData(enquiryForm));
+    payload.action = 'enquiry';
+    const response = await fetch(bookingApi, {
+      method: 'POST',
+      headers: { 'content-type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    const data = await response.json();
+    if (!response.ok || data.error) throw new Error(data.error || 'Unable to send the enquiry.');
+    enquiryForm.reset();
+    enquiryStatus.textContent = 'Thank you — your enquiry has been sent.';
+  } catch (error) {
+    enquiryStatus.textContent = error.message || 'Unable to send the enquiry.';
   }
 });
