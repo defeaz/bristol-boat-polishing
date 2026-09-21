@@ -790,8 +790,12 @@ h2 {
 
 .booking {
   display: grid;
-  gap: clamp(50px, 8vw, 110px);
-  grid-template-columns: 0.72fr 1.28fr;
+  gap: clamp(32px, 5vw, 64px);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.booking-copy {
+  max-width: 880px;
 }
 
 .booking h2 {
@@ -825,6 +829,7 @@ h2 {
   color: var(--ink);
   display: block;
   padding: clamp(24px, 4vw, 42px);
+  width: 100%;
 }
 
 .booking-step {
@@ -978,7 +983,7 @@ h2 {
 .booking-question { margin: 0 0 28px; }
 .booking-question + .booking-question { border-top: 1px solid var(--line); padding-top: 26px; }
 .booking-final-step { margin-top: 28px; }
-.type-choice-grid { display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr); }
+.type-choice-grid { display: grid; gap: 12px; grid-template-columns: repeat(4, 1fr); }
 .type-choice { align-items: center; border: 1px solid #cbd6dd; cursor: pointer; display: flex !important; justify-content: space-between; margin: 0 !important; min-height: 150px; padding: 10px; text-align: center; }
 .type-choice input { opacity: 0; pointer-events: none; position: absolute; }
 .type-choice img { display: block; height: 100px; max-width: 100%; object-fit: contain; object-position: center; width: 100%; }
