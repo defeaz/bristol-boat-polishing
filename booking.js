@@ -12,13 +12,18 @@ const boatPrice = document.querySelector('#boat-price');
 const boatType = document.querySelector('#boat-type');
 const boatModelOptions = document.querySelector('#boat-model-options');
 const boatModelExamples = document.querySelector('#boat-model-examples');
-const boatImages = [
+const motorBoatImages = [
   [19, 'boat-line-10-19.png'],
   [29, 'boat-line-20-29.png'],
   [39, 'boat-line-30-39.png'],
   [59, 'boat-line-40-59.png'],
   [79, 'boat-line-60-79.png'],
   [100, 'boat-line-80-100.png']
+];
+const sailingBoatImages = [
+  [35, 'boat-sail-25-35.png'],
+  [50, 'boat-sail-36-50.png'],
+  [100, 'boat-sail-51-80.png']
 ];
 const marinaPostcodes = {
   'bristol marina': 'BS1 6XQ',
@@ -96,8 +101,9 @@ function updateBoatExamples(feet) {
 
 function updateBoatLength() {
   const feet = Number(boatLength.value);
+  const images = boatType.value === 'Yacht' ? sailingBoatImages : motorBoatImages;
   boatLengthOutput.textContent = `${feet} ft`;
-  classicBoat.src = boatImages.find(([maximum]) => feet <= maximum)[1];
+  classicBoat.src = (images.find(([maximum]) => feet <= maximum) || images.at(-1))[1];
   boatLength.style.setProperty('--range-progress', `${((feet - 10) / 90) * 100}%`);
   updateBoatExamples(feet);
 }

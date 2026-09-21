@@ -1747,7 +1747,7 @@ footer > p:not(.copyright) {
   max-width: 680px;
 }
 #book {
-  scroll-margin-top: 96px;
+  scroll-margin-top: 0;
 }
 
 .boat-model-examples {
