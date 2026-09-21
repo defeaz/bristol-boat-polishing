@@ -9,6 +9,9 @@ const boatLength = document.querySelector('#boat-length');
 const boatLengthOutput = document.querySelector('#boat-length-output');
 const classicBoat = document.querySelector('#classic-boat-size');
 const boatPrice = document.querySelector('#boat-price');
+const boatType = document.querySelector('#boat-type');
+const boatModelOptions = document.querySelector('#boat-model-options');
+const boatModelExamples = document.querySelector('#boat-model-examples');
 const boatImages = [
   [19, 'boat-line-10-19.png'],
   [29, 'boat-line-20-29.png'],
@@ -44,11 +47,59 @@ const localBoatPrices = [
   [79, 340, 1050, 4200], [89, 420, 1250, 5000], [100, 520, 1500, 6000]
 ];
 
+const popularBoatExamples = {
+  Cruiser: [
+    [20, ['Quicksilver Activ 555', 'Jeanneau Cap Camarat 5.5', 'Bayliner VR5']],
+    [30, ['Jeanneau Merry Fisher 795', 'Beneteau Antares 8', 'Parker 800 Weekend']],
+    [40, ['Princess V40', 'Sealine S390', 'Fairline Targa 40']],
+    [50, ['Princess F45', 'Sealine F430', 'Sunseeker Manhattan 46']],
+    [60, ['Princess F55', 'Sunseeker Manhattan 55', 'Fairline Squadron 58']],
+    [80, ['Princess Y72', 'Sunseeker 76 Yacht', 'Fairline Squadron 68']],
+    [100, ['Princess X95', 'Sunseeker 95 Yacht', 'Azimut Grande 27M']]
+  ],
+  Yacht: [
+    [20, ['Beneteau First 18', 'Cornish Crabber 17', 'Drascombe Lugger']],
+    [30, ['Beneteau Oceanis 30.1', 'Jeanneau Sun Odyssey 290', 'Hanse 315']],
+    [40, ['Bavaria C38', 'Beneteau Oceanis 37.1', 'Jeanneau Sun Odyssey 380']],
+    [50, ['Bavaria C46', 'Beneteau Oceanis 46.1', 'Jeanneau Sun Odyssey 490']],
+    [60, ['Oyster 565', 'Hanse 588', 'Beneteau Oceanis Yacht 54']],
+    [80, ['Oyster 675', 'Princess 72', 'Sunreef 70']],
+    [100, ['Oyster 885', 'CNB 88', 'Sunreef 80']]
+  ],
+  'Motor yacht': [
+    [30, ['Jeanneau Merry Fisher 895', 'Beneteau Antares 9', 'Nimbus T9']],
+    [40, ['Princess V40', 'Sealine C390', 'Fairline Targa 40']],
+    [50, ['Princess F45', 'Sunseeker Manhattan 46', 'Azimut 50']],
+    [60, ['Princess F55', 'Sunseeker 55 Manhattan', 'Azimut 60']],
+    [80, ['Princess Y72', 'Sunseeker 76 Yacht', 'Azimut 72']],
+    [100, ['Princess X95', 'Sunseeker 95 Yacht', 'Azimut Grande 27M']]
+  ],
+  'Sports cruiser': [
+    [30, ['Bayliner VR6', 'Sea Ray Sundancer 265', 'Jeanneau Leader 9']],
+    [40, ['Princess V40', 'Fairline Targa 40', 'Sunseeker Superhawk 40']],
+    [50, ['Princess V50', 'Sunseeker Predator 50', 'Fairline Targa 45']],
+    [100, ['Princess V65', 'Sunseeker Predator 75', 'Fairline Targa 65']]
+  ],
+  RIB: [[30, ['Ribeye A600', 'Brig Eagle 8', 'Highfield Sport 760']], [100, ['Ribeye PRIME 821', 'Brig Eagle 10', 'Highfield Patrol 860']]],
+  'Day boat': [[30, ['Jeanneau Cap Camarat 7.5', 'Beneteau Flyer 8', 'Axopar 25']], [100, ['Axopar 37', 'Nimbus T11', 'Jeanneau Cap Camarat 10.5']]],
+  Narrowboat: [[40, ['Aqualine Canterbury', 'Colecraft narrowboat', 'Liverpool Boats cruiser stern']], [60, ['Aqualine Madison', 'Braidbar hybrid narrowboat', 'Tyler Wilson narrowboat']], [100, ['Traditional 70 ft narrowboat', 'Semi-traditional 70 ft narrowboat', 'Widebeam liveaboard']]],
+  'Canal boat': [[40, ['Cruiser-stern narrowboat', 'Traditional narrowboat', 'Compact widebeam']], [60, ['Semi-traditional narrowboat', 'Aqualine widebeam', 'Dutch-style barge']], [100, ['Widebeam liveaboard', 'Dutch barge', 'Hotel narrowboat']]],
+  'Other boat': [[100, ['Enter your make and model', 'Custom or classic vessel', 'Commercial or work boat']]]
+};
+
+function updateBoatExamples(feet) {
+  const groups = popularBoatExamples[boatType.value] || popularBoatExamples['Other boat'];
+  const examples = groups.find(([maximum]) => feet <= maximum)?.[1] || groups.at(-1)[1];
+  boatModelOptions.innerHTML = examples.map((model) => `<option value="${model}"></option>`).join('');
+  boatModelExamples.textContent = `Popular examples around this size: ${examples.join(' · ')}`;
+}
+
 function updateBoatLength() {
   const feet = Number(boatLength.value);
   boatLengthOutput.textContent = `${feet} ft`;
   classicBoat.src = boatImages.find(([maximum]) => feet <= maximum)[1];
   boatLength.style.setProperty('--range-progress', `${((feet - 10) / 90) * 100}%`);
+  updateBoatExamples(feet);
 }
 
 function resetDates() {
@@ -134,6 +185,7 @@ boatBookingForm
   .forEach((field) => field.addEventListener('change', resetDates));
 
 boatService.addEventListener('change', updateArrangement);
+boatType.addEventListener('change', () => updateBoatExamples(Number(boatLength.value)));
 boatLength.addEventListener('input', () => {
   updateBoatLength();
   resetDates();

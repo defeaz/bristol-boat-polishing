@@ -1746,3 +1746,14 @@ footer > p:not(.copyright) {
   margin: 22px auto 30px;
   max-width: 680px;
 }
+#book {
+  scroll-margin-top: 96px;
+}
+
+.boat-model-examples {
+  margin: -.25rem 0 1rem;
+  color: rgba(255,255,255,.78);
+  font-size: .78rem;
+  line-height: 1.55;
+  text-align: center;
+}

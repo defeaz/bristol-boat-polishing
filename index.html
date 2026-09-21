@@ -94,7 +94,6 @@
     "name": "Harbour Shine",
     "url": "https://harbourshine.com/",
     "telephone": "+447794527449",
-    "email": "gus.ferranti@gmail.com",
     "image": "https://harbourshine.com/android-chrome-512x512.png",
     "description": "Professional boat cleaning, polishing, Coppercoat application, antifouling and marine detailing in Bristol, Portishead and across the South West.",
     "areaServed": [
@@ -164,7 +163,7 @@
       <a href="#reviews">Reviews</a>
       <a href="#commercial">Commercial</a>
 
-      <a class="nav-cta" href="#book">
+      <a class="nav-cta" href="/#book">
         Book a clean
       </a>
     </div>
@@ -198,7 +197,7 @@
       </p>
 
       <div class="hero-actions">
-        <a class="button button-primary" href="#book">
+        <a class="button button-primary" href="/#book">
           Book a clean
         </a>
 
@@ -569,9 +568,13 @@
 
           <label>
             Boat type
-            <select name="vehicleType" required>
+            <select name="vehicleType" id="boat-type" required>
               <option>Cruiser</option>
               <option>Yacht</option>
+              <option>Motor yacht</option>
+              <option>Sports cruiser</option>
+              <option>RIB</option>
+              <option>Day boat</option>
               <option>Narrowboat</option>
               <option>Canal boat</option>
               <option>Other boat</option>
@@ -601,16 +604,39 @@
           Marina or postcode
           <input
             name="locationQuery"
+            id="marina-location"
+            list="marina-options"
             autocomplete="postal-code"
             placeholder="e.g. Portishead Marina or BS20 7DF"
             required
           >
+          <datalist id="marina-options">
+            <option value="Portishead Marina"></option>
+            <option value="Bristol Marina"></option>
+            <option value="Bristol Harbour"></option>
+            <option value="Portavon Marina"></option>
+            <option value="Keynsham Marina"></option>
+            <option value="Saltford Marina"></option>
+            <option value="Bath Marina"></option>
+            <option value="Devizes Marina"></option>
+            <option value="Sharpness Marina"></option>
+            <option value="Saul Marina"></option>
+            <option value="Gloucester Docks"></option>
+            <option value="Tewkesbury Marina"></option>
+            <option value="Upton Marina"></option>
+            <option value="Cardiff Marina"></option>
+            <option value="Cardiff Bay Marina"></option>
+            <option value="Penarth Marina"></option>
+            <option value="Barry Marina"></option>
+            <option value="Chepstow Marina"></option>
+          </datalist>
         </label>
 
         <div class="booking-two">
           <label>
             Boat 
-            <input name="model" placeholder="e.g. Princess 38, Mirage" required>
+            <input id="boat-model" name="model" list="boat-model-options" placeholder="e.g. Princess V40 or Bavaria C38" required>
+            <datalist id="boat-model-options"></datalist>
           </label>
         </div>
 
@@ -623,6 +649,8 @@
           <div class="boat-length-visual" aria-hidden="true">
             <img id="classic-boat-size" src="boat-line-30-39.png" alt="">
           </div>
+
+          <p class="boat-model-examples" id="boat-model-examples"></p>
 
           <input
             id="boat-length"
@@ -727,9 +755,6 @@
           07794 527 449
         </a>
 
-        <a href="mailto:gus.ferranti@gmail.com">
-          gus.ferranti@gmail.com
-        </a>
       </div>
 
       <form
@@ -833,10 +858,18 @@
       });
     });
 
+    document.querySelectorAll('a[href="/#book"], a[href="#book"]').forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        document.getElementById('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', '#book');
+      });
+    });
+
     document.getElementById('year').textContent =
       new Date().getFullYear();
   </script>
   <script src="booking-config.js"></script>
-  <script src="booking.js?v=11"></script>
+  <script src="booking.js?v=12"></script>
 </body>
 </html>
