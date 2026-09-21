@@ -9,33 +9,14 @@ const boatLength = document.querySelector('#boat-length');
 const boatLengthOutput = document.querySelector('#boat-length-output');
 const classicBoat = document.querySelector('#classic-boat-size');
 const boatPrice = document.querySelector('#boat-price');
-const boatType = document.querySelector('#boat-type');
-const motorBoatImages = [
-  [19, 'boat-rib-10-19-v2.png'],
-  [29, 'boat-sports-20-29-v2.png'],
-  [44, 'boat-flybridge-30-44-v2.png'],
-  [59, 'boat-cabin-cruiser-45-59-v3.png'],
-  [79, 'boat-motor-yacht-60-79-v3.png'],
-  [100, 'boat-superyacht-80-100-v3.png']
+const boatImages = [
+  [19, 'boat-line-10-19.png'],
+  [29, 'boat-line-20-29.png'],
+  [39, 'boat-line-30-39.png'],
+  [59, 'boat-line-40-59.png'],
+  [79, 'boat-line-60-79.png'],
+  [100, 'boat-line-80-100.png']
 ];
-const sailingBoatImages = [
-  [29, 'boat-sailing-20-29-v2.png'],
-  [44, 'boat-sailing-30-44-v2.png'],
-  [60, 'boat-sailing-45-60-v2.png'],
-  [79, 'boat-sail-51-80.png'],
-  [100, 'boat-sailing-yacht-80-100-v3.png']
-];
-const boatImagesByType = {
-  Yacht: sailingBoatImages,
-  Cruiser: motorBoatImages,
-  'Motor yacht': motorBoatImages.slice(1),
-  'Sports cruiser': motorBoatImages.slice(1),
-  RIB: [[100, 'boat-rib-10-19-v2.png']],
-  'Day boat': motorBoatImages.slice(0, 4),
-  Narrowboat: motorBoatImages,
-  'Canal boat': motorBoatImages,
-  'Other boat': motorBoatImages
-};
 const marinaPostcodes = {
   'bristol marina': 'BS1 6XQ',
   'bristol harbour': 'BS1 5UH',
@@ -65,16 +46,8 @@ const localBoatPrices = [
 
 function updateBoatLength() {
   const feet = Number(boatLength.value);
-  const images = boatImagesByType[boatType.value] || motorBoatImages;
-  const drawingIndex = images.findIndex(([maximum]) => feet <= maximum);
-  const selectedIndex = drawingIndex === -1 ? images.length - 1 : drawingIndex;
-  const drawing = images[selectedIndex];
   boatLengthOutput.textContent = `${feet} ft`;
-  classicBoat.src = drawing[1];
-  classicBoat.style.setProperty(
-    '--boat-width',
-    `${images.length === 1 ? 58 : 48 + (selectedIndex / (images.length - 1)) * 52}%`
-  );
+  classicBoat.src = boatImages.find(([maximum]) => feet <= maximum)[1];
   boatLength.style.setProperty('--range-progress', `${((feet - 10) / 90) * 100}%`);
 }
 
@@ -161,7 +134,6 @@ boatBookingForm
   .forEach((field) => field.addEventListener('change', resetDates));
 
 boatService.addEventListener('change', updateArrangement);
-boatType.addEventListener('change', updateBoatLength);
 boatLength.addEventListener('input', () => {
   updateBoatLength();
   resetDates();
