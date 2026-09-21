@@ -13,16 +13,18 @@ const boatType = document.querySelector('#boat-type');
 const boatModelOptions = document.querySelector('#boat-model-options');
 const boatModelExamples = document.querySelector('#boat-model-examples');
 const motorBoatImages = [
-  [19, 'boat-line-10-19.png'],
-  [29, 'boat-line-20-29.png'],
-  [39, 'boat-line-30-39.png'],
+  [19, 'boat-rib-10-19-v2.png'],
+  [29, 'boat-sports-20-29-v2.png'],
+  [44, 'boat-flybridge-30-44-v2.png'],
   [59, 'boat-line-40-59.png'],
   [79, 'boat-line-60-79.png'],
   [100, 'boat-line-80-100.png']
 ];
 const sailingBoatImages = [
-  [35, 'boat-sail-25-35.png'],
-  [50, 'boat-sail-36-50.png'],
+  [29, 'boat-sailing-20-29-v2.png'],
+  [44, 'boat-sailing-30-44-v2.png'],
+  [60, 'boat-sailing-45-60-v2.png'],
+  [79, 'boat-sail-51-80.png'],
   [100, 'boat-sail-51-80.png']
 ];
 const marinaPostcodes = {
