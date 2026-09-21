@@ -19,14 +19,12 @@ const boatSteps = {
   book: document.querySelector('#boat-step-book')
 };
 const boatImagesByType = {
-  RIB: [[29, 'assets/boats/sizes/rib/compact-rib.png', 'RIB']],
-  Cruiser: [[29, 'assets/boats/sizes/cruiser/sports-cruiser.png', 'Sports cruiser'], [44, 'assets/boats/sizes/cruiser/flybridge-cruiser.png', 'Flybridge cruiser'], [100, 'assets/boats/sizes/cruiser/cabin-cruiser.png', 'Large cabin cruiser']],
+  'Small boat': [[15, 'assets/boats/sizes/small-boat/small-rib.png', 'Small RIB'], [20, 'assets/boats/sizes/small-boat/large-rib.png', 'Large RIB'], [25, 'assets/boats/sizes/small-boat/orkney-16ft.png', 'Orkney-style fishing boat'], [30, 'assets/boats/sizes/small-boat/small-cruiser.png', 'Small cabin cruiser']],
   'Sailing yacht': [[29, 'assets/boats/sizes/sailing-yacht/compact-sailing-yacht.png', 'Compact sailing yacht'], [44, 'assets/boats/sizes/sailing-yacht/cruising-yacht.png', 'Cruising yacht'], [70, 'assets/boats/sizes/sailing-yacht/large-sailing-yacht.png', 'Large sailing yacht'], [100, 'assets/boats/sizes/sailing-yacht/sailing-superyacht.png', 'Sailing superyacht']],
-  'Motor yacht': [[29, 'assets/boats/sizes/motor-yacht/sports-cruiser.png', 'Sports motor cruiser'], [44, 'assets/boats/sizes/motor-yacht/flybridge.png', 'Flybridge motor yacht'], [59, 'assets/boats/sizes/motor-yacht/cabin-motor-yacht.png', 'Cabin motor yacht'], [100, 'assets/boats/sizes/motor-yacht/large-motor-yacht.png', 'Large motor yacht']],
-  Superyacht: [[79, 'assets/boats/sizes/superyacht/motor-yacht.png', 'Motor superyacht'], [100, 'assets/boats/sizes/superyacht/full-size-superyacht.png', 'Full-size superyacht']],
-  'Canal boat': [[49, 'assets/boats/sizes/narrowboat/short-narrowboat.png', 'Short canal boat'], [100, 'assets/boats/sizes/narrowboat/long-narrowboat.png', 'Long canal boat']]
+  'Motor yacht': [[39, 'assets/boats/sizes/motor-yacht/sports-cruiser.png', 'Sports motor cruiser'], [55, 'assets/boats/sizes/motor-yacht/flybridge.png', 'Flybridge motor yacht'], [75, 'assets/boats/sizes/motor-yacht/cabin-motor-yacht.png', 'Cabin motor yacht'], [100, 'assets/boats/sizes/motor-yacht/large-motor-yacht.png', 'Large motor yacht'], [140, 'assets/boats/sizes/superyacht/full-size-superyacht.png', 'Full-size superyacht']],
+  'Canal boat': [[40, 'assets/boats/sizes/narrowboat/short-narrowboat.png', 'Short canal boat'], [72, 'assets/boats/sizes/narrowboat/long-narrowboat.png', 'Long canal boat']]
 };
-const boatLengthRanges = { RIB: [10, 29, 18], Cruiser: [20, 60, 38], 'Sailing yacht': [20, 100, 38], 'Motor yacht': [20, 100, 45], Superyacht: [60, 100, 80], 'Canal boat': [20, 72, 45] };
+const boatLengthRanges = { 'Small boat': [10, 30, 18], 'Sailing yacht': [20, 100, 38], 'Motor yacht': [30, 140, 55], 'Canal boat': [20, 72, 45] };
 const marinaPostcodes = {
   'bristol marina': 'BS1 6XQ',
   'bristol harbour': 'BS1 5UH',
@@ -56,7 +54,7 @@ const localBoatPrices = [
 
 function updateBoatLength() {
   const feet = Number(boatLength.value);
-  const images = boatImagesByType[boatType.value] || boatImagesByType.Cruiser;
+  const images = boatImagesByType[boatType.value] || boatImagesByType['Small boat'];
   const drawingIndex = images.findIndex(([maximum]) => feet <= maximum);
   const selectedIndex = drawingIndex === -1 ? images.length - 1 : drawingIndex;
   const drawing = images[selectedIndex];
@@ -74,7 +72,7 @@ function selectBoatType(value) {
   boatLength.value = initial;
   document.querySelector('.boat-length-limits span:first-child').textContent = `${minimum} ft`;
   document.querySelector('.boat-length-limits span:last-child').textContent = `${maximum} ft`;
-  const isRib = value === 'RIB';
+  const isRib = value === 'Small boat';
   boatInterior.value = 'No interior cleaning';
   boatInteriorLabel.hidden = isRib;
   updateBoatLength();
@@ -220,12 +218,22 @@ document
         throw new Error('Online booking is being updated. Please send an enquiry for now.');
       }
       params.set('action', 'availability');
-      const response = await fetch(`${bookingApi}?${params}`);
-      const data = await response.json();
-
-      if (!response.ok || data.error) {
-        throw new Error(data.error || 'Unable to check availability.');
+      let data;
+      let lastError;
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+        try {
+          const response = await fetch(`${bookingApi}?${params}`, { signal: controller.signal });
+          data = await response.json();
+          if (!response.ok || data.error) throw new Error(data.error || 'Unable to check availability.');
+          break;
+        } catch (error) {
+          lastError = error;
+          if (attempt === 0) { boatBookingStatus.textContent = 'Still checking nearby dates…'; await new Promise(resolve => setTimeout(resolve, 700)); }
+        } finally { clearTimeout(timeout); }
       }
+      if (!data) throw lastError || new Error('Unable to check availability.');
 
       const quote = data.quote || await localQuote(
         location,
