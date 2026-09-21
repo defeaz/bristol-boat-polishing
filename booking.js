@@ -25,6 +25,17 @@ const sailingBoatImages = [
   [79, 'boat-sail-51-80.png'],
   [100, 'boat-sailing-yacht-80-100-v3.png']
 ];
+const boatImagesByType = {
+  Yacht: sailingBoatImages,
+  Cruiser: motorBoatImages,
+  'Motor yacht': motorBoatImages.slice(1),
+  'Sports cruiser': motorBoatImages.slice(1),
+  RIB: [[100, 'boat-rib-10-19-v2.png']],
+  'Day boat': motorBoatImages.slice(0, 4),
+  Narrowboat: motorBoatImages,
+  'Canal boat': motorBoatImages,
+  'Other boat': motorBoatImages
+};
 const marinaPostcodes = {
   'bristol marina': 'BS1 6XQ',
   'bristol harbour': 'BS1 5UH',
@@ -54,12 +65,15 @@ const localBoatPrices = [
 
 function updateBoatLength() {
   const feet = Number(boatLength.value);
-  const images = boatType.value === 'Yacht' ? sailingBoatImages : motorBoatImages;
+  const images = boatImagesByType[boatType.value] || motorBoatImages;
+  const drawingIndex = images.findIndex(([maximum]) => feet <= maximum);
+  const selectedIndex = drawingIndex === -1 ? images.length - 1 : drawingIndex;
+  const drawing = images[selectedIndex];
   boatLengthOutput.textContent = `${feet} ft`;
-  classicBoat.src = (images.find(([maximum]) => feet <= maximum) || images.at(-1))[1];
+  classicBoat.src = drawing[1];
   classicBoat.style.setProperty(
     '--boat-width',
-    `${38 + ((feet - 10) / 90) * 62}%`
+    `${images.length === 1 ? 58 : 48 + (selectedIndex / (images.length - 1)) * 52}%`
   );
   boatLength.style.setProperty('--range-progress', `${((feet - 10) / 90) * 100}%`);
 }
