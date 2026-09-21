@@ -16,16 +16,16 @@ const motorBoatImages = [
   [19, 'boat-rib-10-19-v2.png'],
   [29, 'boat-sports-20-29-v2.png'],
   [44, 'boat-flybridge-30-44-v2.png'],
-  [59, 'boat-line-40-59.png'],
-  [79, 'boat-line-60-79.png'],
-  [100, 'boat-line-80-100.png']
+  [59, 'boat-cabin-cruiser-45-59-v3.png'],
+  [79, 'boat-motor-yacht-60-79-v3.png'],
+  [100, 'boat-superyacht-80-100-v3.png']
 ];
 const sailingBoatImages = [
   [29, 'boat-sailing-20-29-v2.png'],
   [44, 'boat-sailing-30-44-v2.png'],
   [60, 'boat-sailing-45-60-v2.png'],
   [79, 'boat-sail-51-80.png'],
-  [100, 'boat-sail-51-80.png']
+  [100, 'boat-sailing-yacht-80-100-v3.png']
 ];
 const marinaPostcodes = {
   'bristol marina': 'BS1 6XQ',
