@@ -957,23 +957,37 @@ h2 {
 }
 
 .boat-length-visual {
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
   border-bottom: 2px solid #aabac4;
   display: flex;
-  height: 145px;
+  height: clamp(230px, 34vw, 320px);
   margin: 12px 0 18px;
-  overflow: hidden;
+  overflow: visible;
   padding: 0 8px 5px;
 }
 
 .boat-length-visual img {
   display: block;
-  height: auto;
-  max-height: 126px;
+  height: 100%;
   width: 100%;
   object-fit: contain;
-  object-position: center bottom;
+  object-position: center;
 }
+
+.booking-question { margin: 0 0 28px; }
+.booking-question + .booking-question { border-top: 1px solid var(--line); padding-top: 26px; }
+.booking-final-step { margin-top: 28px; }
+.type-choice-grid { display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr); }
+.type-choice { align-items: center; border: 1px solid #cbd6dd; cursor: pointer; display: flex !important; justify-content: space-between; margin: 0 !important; min-height: 150px; padding: 10px; text-align: center; }
+.type-choice input { opacity: 0; pointer-events: none; position: absolute; }
+.type-choice img { display: block; height: 100px; max-width: 100%; object-fit: contain; object-position: center; width: 100%; }
+.type-choice span { color: var(--navy-950); font-size: .78rem; font-weight: 700; }
+.type-choice:has(input:checked) { background: #eef5f7; border: 2px solid var(--navy-900); padding: 9px; }
+.wizard-step[hidden] { display: none; }
+.wizard-step { animation: wizard-in .32s ease both; }
+.wizard-next { margin-top: 12px; width: 100%; }
+@keyframes wizard-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
 .boat-length-range {
   appearance: none;
@@ -1671,6 +1685,8 @@ footer > p:not(.copyright) {
     grid-template-columns: 1fr;
   }
 
+  .type-choice-grid { grid-template-columns: repeat(2, 1fr); }
+
   .field-group {
     grid-column: 1;
   }
@@ -1745,4 +1761,15 @@ footer > p:not(.copyright) {
   color: rgba(255, 255, 255, 0.72);
   margin: 22px auto 30px;
   max-width: 680px;
+}
+#book {
+  scroll-margin-top: 0;
+}
+
+.boat-model-examples {
+  margin: -.25rem 0 1rem;
+  color: rgba(255,255,255,.78);
+  font-size: .78rem;
+  line-height: 1.55;
+  text-align: center;
 }

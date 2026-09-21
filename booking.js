@@ -9,14 +9,24 @@ const boatLength = document.querySelector('#boat-length');
 const boatLengthOutput = document.querySelector('#boat-length-output');
 const classicBoat = document.querySelector('#classic-boat-size');
 const boatPrice = document.querySelector('#boat-price');
-const boatImages = [
-  [19, 'boat-line-10-19.png'],
-  [29, 'boat-line-20-29.png'],
-  [39, 'boat-line-30-39.png'],
-  [59, 'boat-line-40-59.png'],
-  [79, 'boat-line-60-79.png'],
-  [100, 'boat-line-80-100.png']
-];
+const boatType = document.querySelector('#boat-type');
+const boatInteriorLabel = document.querySelector('#boat-interior-label');
+const boatInterior = boatBookingForm.elements.interiorService;
+const boatSteps = {
+  size: document.querySelector('#boat-step-size'),
+  location: document.querySelector('#boat-step-location'),
+  clean: document.querySelector('#boat-step-clean'),
+  book: document.querySelector('#boat-step-book')
+};
+const boatImagesByType = {
+  RIB: [[29, 'assets/boats/sizes/rib/compact-rib.png', 'RIB']],
+  Cruiser: [[29, 'assets/boats/sizes/cruiser/sports-cruiser.png', 'Sports cruiser'], [44, 'assets/boats/sizes/cruiser/flybridge-cruiser.png', 'Flybridge cruiser'], [100, 'assets/boats/sizes/cruiser/cabin-cruiser.png', 'Large cabin cruiser']],
+  'Sailing yacht': [[29, 'assets/boats/sizes/sailing-yacht/compact-sailing-yacht.png', 'Compact sailing yacht'], [44, 'assets/boats/sizes/sailing-yacht/cruising-yacht.png', 'Cruising yacht'], [70, 'assets/boats/sizes/sailing-yacht/large-sailing-yacht.png', 'Large sailing yacht'], [100, 'assets/boats/sizes/sailing-yacht/sailing-superyacht.png', 'Sailing superyacht']],
+  'Motor yacht': [[29, 'assets/boats/sizes/motor-yacht/sports-cruiser.png', 'Sports motor cruiser'], [44, 'assets/boats/sizes/motor-yacht/flybridge.png', 'Flybridge motor yacht'], [59, 'assets/boats/sizes/motor-yacht/cabin-motor-yacht.png', 'Cabin motor yacht'], [100, 'assets/boats/sizes/motor-yacht/large-motor-yacht.png', 'Large motor yacht']],
+  Superyacht: [[79, 'assets/boats/sizes/superyacht/motor-yacht.png', 'Motor superyacht'], [100, 'assets/boats/sizes/superyacht/full-size-superyacht.png', 'Full-size superyacht']],
+  'Canal boat': [[49, 'assets/boats/sizes/narrowboat/short-narrowboat.png', 'Short canal boat'], [100, 'assets/boats/sizes/narrowboat/long-narrowboat.png', 'Long canal boat']]
+};
+const boatLengthRanges = { RIB: [10, 29, 18], Cruiser: [20, 60, 38], 'Sailing yacht': [20, 100, 38], 'Motor yacht': [20, 100, 45], Superyacht: [60, 100, 80], 'Canal boat': [20, 72, 45] };
 const marinaPostcodes = {
   'bristol marina': 'BS1 6XQ',
   'bristol harbour': 'BS1 5UH',
@@ -46,14 +56,44 @@ const localBoatPrices = [
 
 function updateBoatLength() {
   const feet = Number(boatLength.value);
+  const images = boatImagesByType[boatType.value] || boatImagesByType.Cruiser;
+  const drawingIndex = images.findIndex(([maximum]) => feet <= maximum);
+  const selectedIndex = drawingIndex === -1 ? images.length - 1 : drawingIndex;
+  const drawing = images[selectedIndex];
   boatLengthOutput.textContent = `${feet} ft`;
-  classicBoat.src = boatImages.find(([maximum]) => feet <= maximum)[1];
-  boatLength.style.setProperty('--range-progress', `${((feet - 10) / 90) * 100}%`);
+  classicBoat.src = drawing[1];
+  classicBoat.alt = drawing[2];
+  boatLength.style.setProperty('--range-progress', `${((feet - Number(boatLength.min)) / (Number(boatLength.max) - Number(boatLength.min))) * 100}%`);
+}
+
+function selectBoatType(value) {
+  boatType.value = value;
+  const [minimum, maximum, initial] = boatLengthRanges[value];
+  boatLength.min = minimum;
+  boatLength.max = maximum;
+  boatLength.value = initial;
+  document.querySelector('.boat-length-limits span:first-child').textContent = `${minimum} ft`;
+  document.querySelector('.boat-length-limits span:last-child').textContent = `${maximum} ft`;
+  const isRib = value === 'RIB';
+  boatInterior.value = 'No interior cleaning';
+  boatInteriorLabel.hidden = isRib;
+  updateBoatLength();
+  resetDates();
+}
+
+function revealBoatStep(step) {
+  step.hidden = false;
+  requestAnimationFrame(() => {
+    step.classList.add('is-active');
+    step.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
 }
 
 function resetDates() {
   boatBookingFields.hidden = true;
   boatPrice.hidden = true;
+  boatSteps.book.hidden = true;
+  boatSteps.book.classList.remove('is-active');
   document.querySelector('#boat-date').innerHTML = '';
 }
 
@@ -134,6 +174,19 @@ boatBookingForm
   .forEach((field) => field.addEventListener('change', resetDates));
 
 boatService.addEventListener('change', updateArrangement);
+document.querySelectorAll('[name="boatTypeChoice"]').forEach((choice) => choice.addEventListener('change', () => {
+  selectBoatType(choice.value);
+  revealBoatStep(boatSteps.size);
+}));
+document.querySelector('#boat-size-next').addEventListener('click', () => revealBoatStep(boatSteps.location));
+document.querySelector('#boat-location-next').addEventListener('click', () => {
+  if (boatBookingForm.locationQuery.value.trim().length < 3) {
+    boatBookingStatus.textContent = 'Please enter a marina name or complete postcode.';
+    return;
+  }
+  boatBookingStatus.textContent = '';
+  revealBoatStep(boatSteps.clean);
+});
 boatLength.addEventListener('input', () => {
   updateBoatLength();
   resetDates();
@@ -193,6 +246,7 @@ document
         .join('');
 
       boatBookingFields.hidden = false;
+      revealBoatStep(boatSteps.book);
       boatBookingStatus.textContent = '';
     } catch (error) {
       boatBookingStatus.textContent = error.message;
