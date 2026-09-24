@@ -85,7 +85,7 @@
     rel="stylesheet"
   >
 
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css">
 
   <script type="application/ld+json">
   {
@@ -94,6 +94,7 @@
     "name": "Harbour Shine",
     "url": "https://harbourshine.com/",
     "telephone": "+447794527449",
+    "email": "gus.ferranti@gmail.com",
     "image": "https://harbourshine.com/android-chrome-512x512.png",
     "description": "Professional boat cleaning, polishing, Coppercoat application, antifouling and marine detailing in Bristol, Portishead and across the South West.",
     "areaServed": [
@@ -163,8 +164,8 @@
       <a href="#reviews">Reviews</a>
       <a href="#commercial">Commercial</a>
 
-      <a class="nav-cta" href="/#book">
-        Book a clean
+      <a class="nav-cta" href="#book">
+        Book cleaning
       </a>
     </div>
   </nav>
@@ -197,8 +198,8 @@
       </p>
 
       <div class="hero-actions">
-        <a class="button button-primary" href="/#book">
-          Book a clean
+        <a class="button button-primary" href="#book">
+          Book cleaning
         </a>
 
         <a class="button button-ghost" href="tel:+447794527449">
@@ -427,9 +428,8 @@
           </p>
 
           <ul>
-            <li>Gentle wash and dry</li>
-            <li>Teak brushed</li>
-            <li>Canvas freshened</li>
+            <li>Wash and dry</li>
+            <li>Teak & canvas care</li>
             <li>Waxing when necessary</li>
           </ul>
 
@@ -451,9 +451,8 @@
 
           <ul>
             <li>Exterior wash and re wax</li>
-            <li>Teak 2 part clean</li>
-            <li>Canvas clean & proof</li>
-            <li>Vinyl clean & proof</li>
+            <li>Teak chemical clean & brighten</li>
+            <li>Canvas clean & re-waterproof</li>
             <li>Fenders cleaned</li>
           </ul>
 
@@ -474,10 +473,10 @@
           </p>
 
           <ul>
-            <li>Antifoul replacement</li>
-            <li>Propellor/rudder refurbishment</li>
-            <li>Anodes replace or clean</li>
-            <li>Hull polished and waxed</li>
+            <li>Antifoul</li>
+            <li>Propellor and rudder refurbishment</li>
+            <li>Anode replacement or cleaning</li>
+            <li>Hull polish and wax</li>
           </ul>
 
           <a href="#contact">
@@ -513,16 +512,15 @@
 
     <section class="commercial" id="commercial">
       <div>
-        <p class="eyebrow">
-          Commercial area cleaning
+       
         </p>
 
-        <h2>Exterior cleaning on land</h2>
+        <h2>Exterior cleaning for businesses</h2>
 
         <p>
           Pressure washing for marinas, pontoons, walkways, shopfronts,
           car parks, patios and building exteriors throughout Bristol
-          and the surrounding area. Graffiti removal using dry ice technology available.
+          and the surrounding area.
         </p>
       </div>
 
@@ -537,9 +535,9 @@
     <section class="booking section-navy" id="book">
       <div class="booking-copy">
         <p class="eyebrow">Book online</p>
-        <h2>Book a one-off or regular clean</h2>
+        <h2>Book one-off or regular cleaning</h2>
         <p>
-          Enter the boat's postcode and choose the type of clean. Dates are
+          Enter the boat's postcode and choose from options Dates are
           offered around existing Harbour Shine and Caravan Revival work to
           keep travel practical.
         </p>
@@ -552,27 +550,75 @@
       </div>
 
       <form id="booking-form" class="booking-form">
-        <section class="booking-question wizard-step is-active" id="boat-step-type">
-          <div class="booking-step"><span>1</span><h3>What type of boat is it?</h3></div>
-          <input type="hidden" name="vehicleType" id="boat-type" value="">
-          <div class="type-choice-grid boat-type-choices">
-            <label class="type-choice"><input type="radio" name="boatTypeChoice" value="Small boat"><img src="assets/boats/types/small-boat.png" alt="Small boat"><span>Small boats</span></label>
-            <label class="type-choice"><input type="radio" name="boatTypeChoice" value="Sailing yacht"><img src="assets/boats/sizes/sailing-yacht-v3/classic-cruiser-30ft.png" alt="Sailing yacht with its full mast and keel visible"><span>Sailing yacht</span></label>
-            <label class="type-choice"><input type="radio" name="boatTypeChoice" value="Motor yacht"><img src="assets/boats/types/motor-yacht.png" alt="Motor yacht"><span>Motor yacht</span></label>
-            <label class="type-choice"><input type="radio" name="boatTypeChoice" value="Canal boat"><img src="assets/boats/sizes/canal-boat-v2/cruiser-45ft.png" alt="Canal boat"><span>Canal boat</span></label>
-          </div>
-        </section>
+        <div class="booking-step">
+          <span>1</span>
+          <h3>Boat and location</h3>
+        </div>
 
-        <section class="booking-question wizard-step" id="boat-step-size" hidden>
-          <div class="booking-step"><span>2</span><h3>What length is it?</h3></div>
-          <div class="boat-length-picker">
+        <div class="booking-two">
+          <label>
+            Cleaning arrangement
+            <select name="service" id="booking-service" required>
+              <option value="boat-regular">Regular Wash</option>
+              <option value="boat-oneoff">Shine &amp; Protect</option>
+            </select>
+          </label>
+
+          <label>
+            Boat type
+            <select name="vehicleType" required>
+              <option>Cruiser</option>
+              <option>Yacht</option>
+              <option>Narrowboat</option>
+              <option>Canal boat</option>
+              <option>Other boat</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          Interior cleaning
+          <select name="interiorService" required>
+            <option value="No interior cleaning">No interior cleaning</option>
+            <option value="Interior clean">Interior cleaning</option>
+            <option value="Full interior detail">Full interior detail</option>
+          </select>
+        </label>
+
+        <label id="regular-frequency" style="display: none;">
+          How often?
+          <select name="frequency" disabled>
+            <option value="Once a month">Once a month</option>
+            <option value="Every two months">Every two months</option>
+            <option value="Every four months">Every four months</option>
+          </select>
+        </label>
+
+        <label>
+          Marina or postcode
+          <input
+            name="locationQuery"
+            autocomplete="postal-code"
+            placeholder="e.g. Portishead Marina or BS20 7DF"
+            required
+          >
+        </label>
+
+        <div class="booking-two">
+          <label>
+            Boat 
+            <input name="model" placeholder="e.g. Princess 38, Mirage" required>
+          </label>
+        </div>
+
+        <div class="boat-length-picker">
           <div class="boat-length-heading">
             <label for="boat-length">Boat length</label>
             <output id="boat-length-output" for="boat-length">38 ft</output>
           </div>
 
           <div class="boat-length-visual" aria-hidden="true">
-            <img id="classic-boat-size" src="assets/boats/sizes/cruiser/flybridge-cruiser.png" alt="Cruiser">
+            <img id="classic-boat-size" src="boat-line-30-39.png" alt="">
           </div>
 
           <input
@@ -591,35 +637,13 @@
             <span>10 ft</span>
             <span>100 ft</span>
           </div>
-          </div>
-          <button class="button wizard-next" type="button" id="boat-size-next">Continue</button>
-        </section>
+        </div>
 
-        <section class="booking-question wizard-step" id="boat-step-location" hidden>
-          <div class="booking-step"><span>3</span><h3>Where is the boat?</h3></div>
-          <label>Marina or postcode
-            <input name="locationQuery" id="marina-location" list="marina-options" autocomplete="postal-code" placeholder="e.g. Portishead Marina or BS20 7DF" required>
-            <datalist id="marina-options">
-              <option value="Portishead Marina"></option><option value="Bristol Marina"></option><option value="Bristol Harbour"></option><option value="Portavon Marina"></option><option value="Keynsham Marina"></option><option value="Saltford Marina"></option><option value="Bath Marina"></option><option value="Devizes Marina"></option><option value="Sharpness Marina"></option><option value="Saul Marina"></option><option value="Gloucester Docks"></option><option value="Tewkesbury Marina"></option><option value="Upton Marina"></option><option value="Cardiff Marina"></option><option value="Cardiff Bay Marina"></option><option value="Penarth Marina"></option><option value="Barry Marina"></option><option value="Chepstow Marina"></option>
-            </datalist>
-          </label>
-          <button class="button wizard-next" type="button" id="boat-location-next">Continue</button>
-        </section>
+        <button class="button booking-find" type="button" id="find-boat-dates">
+          Show available dates
+        </button>
 
-        <section class="booking-question wizard-step" id="boat-step-clean" hidden>
-          <div class="booking-step"><span>4</span><h3>What clean do you need?</h3></div>
-          <div class="booking-two">
-            <label>Cleaning arrangement<select name="service" id="booking-service" required><option value="boat-regular">Regular Wash</option><option value="boat-oneoff">Shine &amp; Protect</option></select></label>
-            <label id="boat-interior-label">Interior cleaning<select name="interiorService" required><option value="No interior cleaning">No interior cleaning</option><option value="Interior clean">Interior clean</option><option value="Full interior detail">Full interior detail</option></select></label>
-          </div>
-          <label id="regular-frequency" style="display: none;">How often would you like regular cleaning?<select name="frequency" disabled><option value="Monthly">Monthly</option><option value="Every two months">Every two months</option><option value="Every three months">Every three months</option></select></label>
-          <label>Boat make and model<input id="boat-model" name="model" placeholder="Enter the make and model" required></label>
-          <button class="button booking-find" type="button" id="find-boat-dates">Show available dates</button>
-          <p id="booking-status" class="booking-status" aria-live="polite"></p>
-        </section>
-
-        <section class="booking-question wizard-step" id="boat-step-book" hidden>
-          <div class="booking-step booking-final-step"><span>5</span><h3>Choose a date and book</h3></div>
+        <p id="booking-status" class="booking-status" aria-live="polite"></p>
 
         <div id="boat-price" class="boat-price" hidden>
           <div class="boat-price-row">
@@ -638,7 +662,7 @@
             <span>Total cleaning price</span>
             <strong id="boat-price-total">£0</strong>
           </div>
-          <small>Only the £30 deposit is charged now. The remaining balance is due after the work.</small>
+        
         </div>
 
         <div id="boat-booking-fields" hidden>
@@ -667,7 +691,7 @@
           <label class="booking-check">
             <input type="checkbox" required>
             <span>
-              There is access to water and electricity at the location.
+              There is access to water and electricity.
             </span>
           </label>
 
@@ -680,7 +704,6 @@
             Pay £30 deposit &amp; confirm
           </button>
         </div>
-        </section>
       </form>
     </section>
 
@@ -701,15 +724,32 @@
           07794 527 449
         </a>
 
+        <a href="mailto:gus.ferranti@gmail.com">
+          gus.ferranti@gmail.com
+        </a>
       </div>
 
       <form
-        id="enquiry-form"
+        action="https://formsubmit.co/gus.ferranti@gmail.com"
+        method="POST"
       >
         <input
           type="hidden"
-          name="business"
-          value="Harbour Shine"
+          name="_honey"
+          tabindex="-1"
+          autocomplete="off"
+        >
+
+        <input
+          type="hidden"
+          name="_template"
+          value="box"
+        >
+
+        <input
+          type="hidden"
+          name="_subject"
+          value="New Harbour Shine website enquiry"
         >
 
         <div class="field-group">
@@ -755,7 +795,6 @@
         >
           Send request
         </button>
-        <p id="enquiry-status" aria-live="polite"></p>
       </form>
     </section>
   </main>
@@ -804,18 +843,9 @@
       });
     });
 
-    document.querySelectorAll('a[href="/#book"], a[href="#book"]').forEach(link => {
-      link.addEventListener('click', event => {
-        event.preventDefault();
-        document.getElementById('book').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        history.replaceState(null, '', '#book');
-      });
-    });
-
     document.getElementById('year').textContent =
       new Date().getFullYear();
   </script>
-  <script src="booking-config.js"></script>
-  <script src="booking.js?v=21"></script>
+  <script src="booking.js?v=10"></script>
 </body>
 </html>
