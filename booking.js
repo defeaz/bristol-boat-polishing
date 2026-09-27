@@ -77,7 +77,8 @@ function refresh(){
   const saving=visitType==='Regular'?oneOffPrice-boatPrice(feet,service,'Regular'):0;
   const servicePrice=oneOffPrice-saving, inside=interiorPrice(feet,interior);
   quote=servicePrice+inside;
-  document.querySelector('#boat-price-service-label').textContent=service==='boat-regular'?'Regular Wash':'Shine & Protect';
+  document.querySelector('#boat-price-service-label').textContent=service==='boat-regular'?'Full Wash':'Shine & Protect';
+  document.querySelector('#boat-service-description').hidden=service!=='boat-oneoff';
   document.querySelector('#boat-price-service').textContent=money(oneOffPrice);
   document.querySelector('#boat-regular-saving').hidden=!saving;
   document.querySelector('#boat-price-saving').textContent=`−${money(saving)}`;

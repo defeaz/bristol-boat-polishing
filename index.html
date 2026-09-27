@@ -86,7 +86,7 @@
   >
 
   <link rel="stylesheet" href="style.css?v=6">
-  <link rel="stylesheet" href="booking-studio.css?v=5">
+  <link rel="stylesheet" href="booking-studio.css?v=6">
 
   <script type="application/ld+json">
   {
@@ -420,7 +420,7 @@
         <article class="price-card">
           <p class="package-label">Maintenance</p>
 
-          <h3>Regular Wash</h3>
+          <h3>Full Wash</h3>
 
           <p class="price">
             From <strong>£125</strong>
@@ -528,14 +528,15 @@
             <div class="boat-length-limits" aria-hidden="true"><span>25 ft</span><span>100 ft</span></div>
           </fieldset>
           <fieldset class="choice-group"><legend>Services</legend>
-            <div class="basket-choices"><label><input type="radio" name="service" value="boat-regular" checked><span>Regular Wash</span></label><label><input type="radio" name="service" value="boat-oneoff"><span>Shine &amp; Protect</span></label></div>
+            <div class="basket-choices"><label><input type="radio" name="service" value="boat-regular" checked><span>Full Wash</span></label><label><input type="radio" name="service" value="boat-oneoff"><span>Shine &amp; Protect</span></label></div>
             <div class="basket-choices"><label><input type="radio" name="interiorService" value="No interior cleaning" checked><span>No interior</span></label><label><input type="radio" name="interiorService" value="Interior clean"><span>Interior refresh</span></label><label><input type="radio" name="interiorService" value="Full interior detail"><span>Full interior detail</span></label></div>
-            <div class="frequency-box"><span>Visit frequency</span><div class="basket-choices"><label><input type="radio" name="visitType" value="One-off" checked><span>One-off</span></label><label><input type="radio" name="visitType" value="Regular"><span>Regular visits · save 30%</span></label></div><div id="regular-frequency" class="basket-choices" hidden><label><input type="radio" name="frequency" value="Monthly" checked><span>Monthly</span></label><label><input type="radio" name="frequency" value="Every two months"><span>Every 2 months</span></label><label><input type="radio" name="frequency" value="Every three months"><span>Every 3 months</span></label></div></div>
+            <div class="frequency-box"><span>Visit frequency</span><div class="basket-choices"><label><input type="radio" name="visitType" value="One-off" checked><span>One-off</span></label><label><input type="radio" name="visitType" value="Regular"><span>Regular visits <strong class="frequency-discount">30% off</strong></span></label></div><div id="regular-frequency" class="basket-choices" hidden><label><input type="radio" name="frequency" value="Monthly" checked><span>Monthly</span></label><label><input type="radio" name="frequency" value="Every two months"><span>Every 2 months</span></label><label><input type="radio" name="frequency" value="Every three months"><span>Every 3 months</span></label></div></div>
           </fieldset>
         </div>
         <div class="booking-basket">
           <h3>Your booking <span aria-hidden="true">↗</span></h3>
-          <div class="basket-line"><span id="boat-price-service-label">Regular Wash</span><strong id="boat-price-service">£0</strong></div>
+          <div class="basket-line"><span id="boat-price-service-label">Full Wash</span><strong id="boat-price-service">£0</strong></div>
+          <p id="boat-service-description" class="basket-service-description" hidden>Exterior wash and re-wax, teak cleaned and brightened, canvas cleaned and re-waterproofed, and fenders cleaned.</p>
           <div class="basket-line basket-saving" id="boat-regular-saving" hidden><span>Regular visit saving</span><strong id="boat-price-saving">−£0</strong></div>
           <div class="basket-line"><span id="boat-interior-label">No interior</span><strong id="boat-price-interior">£0</strong></div>
           <div class="basket-line"><span>Travel</span><strong id="boat-price-travel">Calculated with location</strong></div>
@@ -696,7 +697,7 @@
       new Date().getFullYear();
   </script>
   <script src="booking-config.js"></script>
-  <script src="booking.js?v=27"></script>
+  <script src="booking.js?v=28"></script>
   <script src="enquiry.js?v=1"></script>
 </body>
 </html>
