@@ -30,8 +30,8 @@ const catalogue = {
     [40,'Flybridge cruiser','cruiser/flybridge-cruiser.png'],
     [55,'Flybridge yacht','motor-yacht/flybridge.png'],
     [72,'Motor yacht','motor-yacht/cabin-motor-yacht.png'],
-    [95,'Large motor yacht','motor-yacht/large-motor-yacht.png'],
-    [100,'Large motor yacht','superyacht/motor-yacht.png']
+    [90,'Large motor yacht','motor-yacht/large-motor-yacht.png'],
+    [100,'Three-deck motor yacht','superyacht/three-deck-100ft.webp']
   ],
   'Canal boat': [
     [20,'Day boat','canal-boat-v2/day-boat-20ft.png'],
@@ -41,18 +41,25 @@ const catalogue = {
     [70,'Widebeam canal boat','canal-boat-v2/widebeam-70ft-new.webp']
   ]
 };
-const priceBands = [[19,95,350],[29,125,425],[39,155,500],[49,185,600],[59,225,725],[69,275,875],[79,340,1050],[89,420,1250],[100,520,1500]];
+// Gradual length-based estimates; changing the slider by one foot never crosses a price bracket.
+const exteriorPrices = [[10,114,350],[20,114,350],[30,130,425],[40,160,500],[50,195,600],[60,240,725],[70,295,875],[80,360,1050],[90,440,1250],[100,520,1500]];
+const interiorPrices = [[10,60,180],[20,60,180],[30,70,220],[50,80,250],[70,120,375],[100,160,500]];
 let quote=0, requestVersion=0;
-function boatPrice(feet,service){
-  const band=priceBands.find(([max])=>feet<=max);
-  if(band)return band[service==='boat-regular'?1:2];
-  const extra=Math.ceil((feet-100)/10);
-  return service==='boat-regular'?520+extra*300:1500+extra*800;
+function interpolate(feet,points,column){
+  if(feet<=points[0][0])return points[0][column];
+  for(let i=1;i<points.length;i++)if(feet<=points[i][0]){
+    const lower=points[i-1], upper=points[i];
+    return lower[column]+(upper[column]-lower[column])*(feet-lower[0])/(upper[0]-lower[0]);
+  }
+  return points.at(-1)[column];
+}
+function boatPrice(feet,service,visitType){
+  const base=interpolate(feet,exteriorPrices,service==='boat-regular'?1:2);
+  return Math.round(base*(visitType==='Regular'?.9:1.1));
 }
 function interiorPrice(feet,choice){
   if(choice==='No interior cleaning')return 0;
-  const band=feet<=49?[80,250]:feet<=69?[120,375]:feet<=100?[160,500]:feet<=130?[220,700]:[300,950];
-  return band[choice==='Interior clean'?0:1];
+  return Math.round(interpolate(feet,interiorPrices,choice==='Interior clean'?1:2));
 }
 function resetDates(){requestVersion++;boatFields.hidden=true;document.querySelector('#boat-date').replaceChildren();boatStatus.textContent='';document.querySelector('#boat-price-travel').textContent='Calculated with location';}
 function refresh(){
@@ -63,14 +70,19 @@ function refresh(){
   document.querySelector('#boat-profile-caption').textContent=item[1];
   boatLength.style.setProperty('--range-progress',`${(feet-Number(boatLength.min))/(Number(boatLength.max)-Number(boatLength.min))*100}%`);
   const service=boatForm.elements.service.value, interior=boatForm.elements.interiorService.value;
-  const servicePrice=boatPrice(feet,service), inside=interiorPrice(feet,interior);
+  const visitType=boatForm.elements.visitType.value;
+  const oneOffPrice=boatPrice(feet,service,'One-off');
+  const saving=visitType==='Regular'?oneOffPrice-boatPrice(feet,service,'Regular'):0;
+  const servicePrice=oneOffPrice-saving, inside=interiorPrice(feet,interior);
   quote=servicePrice+inside;
   document.querySelector('#boat-price-service-label').textContent=service==='boat-regular'?'Regular Wash':'Shine & Protect';
-  document.querySelector('#boat-price-service').textContent=money(servicePrice);
+  document.querySelector('#boat-price-service').textContent=money(oneOffPrice);
+  document.querySelector('#boat-regular-saving').hidden=!saving;
+  document.querySelector('#boat-price-saving').textContent=`−${money(saving)}`;
   document.querySelector('#boat-interior-label').textContent=interior;
   document.querySelector('#boat-price-interior').textContent=money(inside);
   document.querySelector('#boat-price-total').textContent=money(quote);
-  const recurring=boatForm.elements.visitType.value==='Regular';
+  const recurring=visitType==='Regular';
   document.querySelector('#regular-frequency').hidden=!recurring;
   boatForm.querySelectorAll('[name="frequency"]').forEach(el=>el.disabled=!recurring);
   document.querySelectorAll('[name="interiorService"]').forEach(el=>{el.disabled=boatType.value==='Small boat'&&feet<=18&&el.value!=='No interior cleaning';});
