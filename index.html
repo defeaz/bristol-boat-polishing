@@ -86,7 +86,7 @@
   >
 
   <link rel="stylesheet" href="style.css?v=6">
-  <link rel="stylesheet" href="booking-studio.css?v=1">
+  <link rel="stylesheet" href="booking-studio.css?v=2">
 
   <script type="application/ld+json">
   {
@@ -510,7 +510,7 @@
     </section>
 
     <section class="booking section-navy booking-studio" id="book">
-      <div class="booking-head"><div><p class="eyebrow">Book online</p><h2>Build your booking</h2><p>Select a boat profile and services. Change any choice to update the price.</p></div><p class="booking-deposit">£30 deposit to reserve a date<br><small>Balance paid after the work</small></p></div>
+      <div class="booking-head"><div><p class="eyebrow">Book online</p><h2>Build your booking</h2></div><p class="booking-deposit">£30 deposit to reserve a date<br><small>Balance paid after the work</small></p></div>
       <form id="booking-form" class="booking-grid">
         <div class="booking-build">
           <fieldset class="choice-group"><legend>Boat type</legend>
@@ -522,15 +522,15 @@
               <label class="type-choice"><input type="radio" name="boatTypeChoice" value="Canal boat"><img src="assets/boats/types/narrowboat.png" alt=""><span>Canal boat</span></label>
             </div>
           </fieldset>
-          <fieldset class="choice-group"><legend>Length and profile <small>Choose the closest match</small></legend>
-            <div id="boat-profile-options" class="boat-profile-options" role="group" aria-label="Eight boat profiles"></div>
-            <div class="boat-preview"><img id="classic-boat-size" src="assets/boats/sizes/motor-yacht/flybridge.png" alt="Representative motor yacht"><div><output id="boat-length-output">45 ft</output><p id="boat-profile-caption">Flybridge cruiser profile</p></div></div>
-            <input type="hidden" name="length" id="boat-length" value="45">
+          <fieldset class="choice-group"><legend>Overall length</legend>
+            <div class="boat-preview"><img id="classic-boat-size" src="assets/boats/sizes/motor-yacht/flybridge.png" alt="Representative motor yacht"><div><output id="boat-length-output" for="boat-length">45 ft</output><p id="boat-profile-caption">Flybridge cruiser</p></div></div>
+            <input type="range" name="length" id="boat-length" min="25" max="100" step="1" value="45" aria-label="Boat length in feet">
+            <div class="boat-length-limits" aria-hidden="true"><span>25 ft</span><span>100 ft</span></div>
           </fieldset>
           <fieldset class="choice-group"><legend>Services</legend>
             <div class="basket-choices"><label><input type="radio" name="service" value="boat-regular" checked><span>Regular Wash</span></label><label><input type="radio" name="service" value="boat-oneoff"><span>Shine &amp; Protect</span></label></div>
             <div class="basket-choices"><label><input type="radio" name="interiorService" value="No interior cleaning" checked><span>No interior</span></label><label><input type="radio" name="interiorService" value="Interior clean"><span>Interior refresh</span></label><label><input type="radio" name="interiorService" value="Full interior detail"><span>Full interior detail</span></label></div>
-            <label id="regular-frequency" class="frequency-field">Regular visit frequency<select name="frequency"><option value="Monthly">Monthly</option><option value="Every two months">Every two months</option><option value="Every three months">Every three months</option></select></label>
+            <div class="frequency-box"><span>Visit frequency</span><div class="basket-choices"><label><input type="radio" name="visitType" value="One-off" checked><span>One-off</span></label><label><input type="radio" name="visitType" value="Regular"><span>Regular visits</span></label></div><div id="regular-frequency" class="basket-choices" hidden><label><input type="radio" name="frequency" value="Monthly" checked><span>Monthly</span></label><label><input type="radio" name="frequency" value="Every two months"><span>Every 2 months</span></label><label><input type="radio" name="frequency" value="Every three months"><span>Every 3 months</span></label></div></div>
           </fieldset>
         </div>
         <div class="booking-basket">
@@ -695,7 +695,7 @@
       new Date().getFullYear();
   </script>
   <script src="booking-config.js"></script>
-  <script src="booking.js?v=23"></script>
+  <script src="booking.js?v=24"></script>
   <script src="enquiry.js?v=1"></script>
 </body>
 </html>

@@ -7,18 +7,14 @@ const boatImage = document.querySelector('#classic-boat-size');
 const api = window.BOOKING_API_URL;
 const money = n => new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP',maximumFractionDigits:0}).format(n);
 const base = 'assets/boats/sizes/';
-// Eight real-world-plausible length/profile choices per category. Images are representative,
-// while the customer's make/model is captured separately for the final work plan.
+// Illustrations are representative; the customer's make/model is captured separately.
 const catalogue = {
   'Small boat': [
     [10,'Open dinghy','small-boat-v2/dinghy-10ft.png'],
     [14,'Compact RIB','small-boat-v2/rib-14ft.png'],
     [16,'Fishing boat','small-boat/orkney-16ft.png'],
-    [18,'Runabout','small-boat/small-rib.png'],
-    [21,'Offshore RIB','small-boat/large-rib.png'],
-    [24,'Cuddy cruiser','small-boat/small-cruiser.png'],
-    [27,'Sports cruiser','cruiser/sports-cruiser.png'],
-    [33,'Cabin cruiser','cruiser/cabin-cruiser.png']
+    [18,'Runabout RIB','small-boat/small-rib.png'],
+    [22,'Offshore RIB','small-boat/large-rib.png']
   ],
   'Sailing yacht': [
     [20,'Pocket cruiser','sailing-yacht-v3/pocket-cruiser-20ft.png'],
@@ -26,9 +22,7 @@ const catalogue = {
     [34,'Cruising yacht','sailing-yacht-v3/classic-cruiser-30ft.png'],
     [42,'Modern cruiser','sailing-yacht/cruising-yacht.png'],
     [50,'Offshore yacht','sailing-yacht-v3/offshore-performance-45ft.png'],
-    [65,'Deck saloon','sailing-yacht-v3/deck-saloon-65ft.png'],
-    [85,'Large sailing yacht','sailing-yacht/large-sailing-yacht.png'],
-    [130,'Sailing superyacht','sailing-yacht-v3/sailing-superyacht-100ft.png']
+    [100,'Large sailing yacht','sailing-yacht-v3/sailing-superyacht-100ft.png']
   ],
   'Motor yacht': [
     [25,'Sports cruiser','motor-yacht/sports-cruiser.png'],
@@ -37,22 +31,18 @@ const catalogue = {
     [55,'Flybridge yacht','motor-yacht/flybridge.png'],
     [72,'Motor yacht','motor-yacht/cabin-motor-yacht.png'],
     [95,'Large motor yacht','motor-yacht/large-motor-yacht.png'],
-    [120,'Superyacht','superyacht/motor-yacht.png'],
-    [160,'Large superyacht','superyacht/full-size-superyacht.png']
+    [100,'Large motor yacht','superyacht/motor-yacht.png']
   ],
   'Canal boat': [
     [20,'Day boat','canal-boat-v2/day-boat-20ft.png'],
-    [25,'Short narrowboat','narrowboat/short-narrowboat.png'],
     [30,'Traditional stern','canal-boat-v2/traditional-30ft.png'],
     [40,'Cruiser stern','canal-boat-v2/cruiser-45ft.png'],
-    [45,'Narrowboat','canal-boat-v2/cruiser-45ft.png'],
     [57,'Liveaboard narrowboat','canal-boat-v2/liveaboard-57ft.png'],
-    [65,'Long narrowboat','narrowboat/long-narrowboat.png'],
-    [70,'Widebeam canal boat','canal-boat-v2/widebeam-70ft.png']
+    [70,'Widebeam canal boat','canal-boat-v2/widebeam-70ft-new.webp']
   ]
 };
 const priceBands = [[19,95,350],[29,125,425],[39,155,500],[49,185,600],[59,225,725],[69,275,875],[79,340,1050],[89,420,1250],[100,520,1500]];
-let selected=3, quote=0, requestVersion=0;
+let quote=0, requestVersion=0;
 function boatPrice(feet,service){
   const band=priceBands.find(([max])=>feet<=max);
   if(band)return band[service==='boat-regular'?1:2];
@@ -66,36 +56,37 @@ function interiorPrice(feet,choice){
 }
 function resetDates(){requestVersion++;boatFields.hidden=true;document.querySelector('#boat-date').replaceChildren();boatStatus.textContent='';document.querySelector('#boat-price-travel').textContent='Calculated with location';}
 function refresh(){
-  const item=catalogue[boatType.value][selected];
-  boatLength.value=item[0];boatImage.src=base+item[2];boatImage.alt=`Representative ${item[1].toLowerCase()} profile`;
-  document.querySelector('#boat-length-output').textContent=`${item[0]} ft`;
+  const feet=Number(boatLength.value), items=catalogue[boatType.value];
+  const item=items.reduce((nearest,current)=>Math.abs(current[0]-feet)<Math.abs(nearest[0]-feet)?current:nearest);
+  boatImage.src=base+item[2];boatImage.alt=`Representative ${item[1].toLowerCase()} profile`;
+  document.querySelector('#boat-length-output').textContent=`${feet} ft`;
   document.querySelector('#boat-profile-caption').textContent=item[1];
-  document.querySelectorAll('.boat-profile-option').forEach((el,i)=>el.setAttribute('aria-pressed',String(i===selected)));
+  boatLength.style.setProperty('--range-progress',`${(feet-Number(boatLength.min))/(Number(boatLength.max)-Number(boatLength.min))*100}%`);
   const service=boatForm.elements.service.value, interior=boatForm.elements.interiorService.value;
-  const servicePrice=boatPrice(item[0],service), inside=interiorPrice(item[0],interior);
+  const servicePrice=boatPrice(feet,service), inside=interiorPrice(feet,interior);
   quote=servicePrice+inside;
   document.querySelector('#boat-price-service-label').textContent=service==='boat-regular'?'Regular Wash':'Shine & Protect';
   document.querySelector('#boat-price-service').textContent=money(servicePrice);
   document.querySelector('#boat-interior-label').textContent=interior;
   document.querySelector('#boat-price-interior').textContent=money(inside);
   document.querySelector('#boat-price-total').textContent=money(quote);
-  const frequency=document.querySelector('#regular-frequency');frequency.hidden=service!=='boat-regular';frequency.querySelector('select').disabled=service!=='boat-regular';
-  document.querySelectorAll('[name="interiorService"]').forEach(el=>{el.disabled=boatType.value==='Small boat'&&item[0]<=18&&el.value!=='No interior cleaning';});
+  const recurring=boatForm.elements.visitType.value==='Regular';
+  document.querySelector('#regular-frequency').hidden=!recurring;
+  boatForm.querySelectorAll('[name="frequency"]').forEach(el=>el.disabled=!recurring);
+  document.querySelectorAll('[name="interiorService"]').forEach(el=>{el.disabled=boatType.value==='Small boat'&&feet<=18&&el.value!=='No interior cleaning';});
 }
-function renderProfiles(){
+function setBoatRange(){
   const items=catalogue[boatType.value];
-  document.querySelector('#boat-profile-options').replaceChildren(...items.map(([feet,label,path],index)=>{
-    const button=document.createElement('button');button.type='button';button.className='boat-profile-option';button.setAttribute('aria-label',`${feet} ft ${label}`);
-    const thumb=document.createElement('img');thumb.src=base+path;thumb.alt='';thumb.loading='lazy';
-    const text=document.createElement('span');text.textContent=`${feet} ft`;
-    button.append(thumb,text);button.addEventListener('click',()=>{selected=index;if(boatType.value==='Small boat'&&feet<=18)boatForm.querySelector('[name="interiorService"][value="No interior cleaning"]').checked=true;resetDates();refresh();});
-    return button;
-  }));refresh();
+  boatLength.min=items[0][0];boatLength.max=items.at(-1)[0];
+  boatLength.value=boatType.value==='Motor yacht'?45:items[0][0];
+  const labels=document.querySelectorAll('.boat-length-limits span');labels[0].textContent=`${boatLength.min} ft`;labels[1].textContent=`${boatLength.max} ft`;
+  refresh();
 }
-boatForm.querySelectorAll('[name="boatTypeChoice"]').forEach(el=>el.addEventListener('change',()=>{boatType.value=el.value;selected=el.value==='Motor yacht'?3:0;boatForm.querySelector('[name="interiorService"][value="No interior cleaning"]').checked=true;resetDates();renderProfiles();}));
-boatForm.querySelectorAll('[name="service"],[name="interiorService"]').forEach(el=>el.addEventListener('change',()=>{resetDates();refresh();}));
+boatForm.querySelectorAll('[name="boatTypeChoice"]').forEach(el=>el.addEventListener('change',()=>{boatType.value=el.value;boatForm.querySelector('[name="interiorService"][value="No interior cleaning"]').checked=true;resetDates();setBoatRange();}));
+boatLength.addEventListener('input',()=>{if(boatType.value==='Small boat'&&Number(boatLength.value)<=18)boatForm.querySelector('[name="interiorService"][value="No interior cleaning"]').checked=true;resetDates();refresh();});
+boatForm.querySelectorAll('[name="service"],[name="interiorService"],[name="visitType"]').forEach(el=>el.addEventListener('change',()=>{resetDates();refresh();}));
 boatForm.locationQuery.addEventListener('input',resetDates);
-renderProfiles();
+setBoatRange();
 const marinas={
   'bristol marina':'BS1 6XQ','bristol harbour':'BS1 5UH','bristol floating harbour':'BS1 5UH',
   'portishead marina':'BS20 7DF','portavon marina':'BS31 2DD','keynsham marina':'BS31 2DD',
