@@ -86,6 +86,7 @@
   >
 
   <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="booking-studio.css?v=1">
 
   <script type="application/ld+json">
   {
@@ -94,7 +95,6 @@
     "name": "Harbour Shine",
     "url": "https://harbourshine.com/",
     "telephone": "+447794527449",
-    "email": "gus.ferranti@gmail.com",
     "image": "https://harbourshine.com/android-chrome-512x512.png",
     "description": "Professional boat cleaning, polishing, Coppercoat application, antifouling and marine detailing in Bristol, Portishead and across the South West.",
     "areaServed": [
@@ -162,7 +162,6 @@
       <a href="#pricing">Prices</a>
       <a href="#recent-work">Our work</a>
       <a href="#reviews">Reviews</a>
-      <a href="#commercial">Commercial</a>
 
       <a class="nav-cta" href="#book">
         Book cleaning
@@ -510,175 +509,52 @@
       </div>
     </section>
 
-    <section class="commercial" id="commercial">
-      <div>
-       
-        </p>
-
-        <h2>Exterior cleaning for businesses</h2>
-
-        <p>
-          Pressure washing for marinas, pontoons, walkways, shopfronts,
-          car parks, patios and building exteriors throughout Bristol
-          and the surrounding area.
-        </p>
-      </div>
-
-      <a
-        class="button button-light"
-        href="/pressure-washing-bristol.html"
-      >
-        View commercial cleaning
-      </a>
-    </section>
-
-    <section class="booking section-navy" id="book">
-      <div class="booking-copy">
-        <p class="eyebrow">Book online</p>
-        <h2>Book a one-off or regular clean</h2>
-        <p>
-          Enter the boat's postcode and choose the type of clean. Dates are
-          offered around existing Harbour Shine and Caravan Revival work to
-          keep travel practical.
-        </p>
-
-        <div class="booking-capacity">
-          <strong>£30 booking deposit</strong>
-          <span>Taken securely when your date is confirmed.</span>
-          <small>Your full cleaning price is shown before you pay the deposit.</small>
+    <section class="booking section-navy booking-studio" id="book">
+      <div class="booking-head"><div><p class="eyebrow">Book online</p><h2>Build your booking</h2><p>Select a boat profile and services. Change any choice to update the price.</p></div><p class="booking-deposit">£30 deposit to reserve a date<br><small>Balance paid after the work</small></p></div>
+      <form id="booking-form" class="booking-grid">
+        <div class="booking-build">
+          <fieldset class="choice-group"><legend>Boat type</legend>
+            <input type="hidden" name="vehicleType" id="boat-type" value="Motor yacht">
+            <div class="type-choice-grid boat-type-choices">
+              <label class="type-choice"><input type="radio" name="boatTypeChoice" value="Small boat"><img src="assets/boats/types/small-boat.png" alt=""><span>Small boat</span></label>
+              <label class="type-choice"><input type="radio" name="boatTypeChoice" value="Sailing yacht"><img src="assets/boats/types/sailing-yacht.png" alt=""><span>Sailing yacht</span></label>
+              <label class="type-choice"><input type="radio" name="boatTypeChoice" value="Motor yacht" checked><img src="assets/boats/types/motor-yacht.png" alt=""><span>Motor yacht</span></label>
+              <label class="type-choice"><input type="radio" name="boatTypeChoice" value="Canal boat"><img src="assets/boats/types/narrowboat.png" alt=""><span>Canal boat</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="choice-group"><legend>Length and profile <small>Choose the closest match</small></legend>
+            <div id="boat-profile-options" class="boat-profile-options" role="group" aria-label="Eight boat profiles"></div>
+            <div class="boat-preview"><img id="classic-boat-size" src="assets/boats/sizes/motor-yacht/flybridge.png" alt="Representative motor yacht"><div><output id="boat-length-output">45 ft</output><p id="boat-profile-caption">Flybridge cruiser profile</p></div></div>
+            <input type="hidden" name="length" id="boat-length" value="45">
+          </fieldset>
+          <fieldset class="choice-group"><legend>Services</legend>
+            <div class="basket-choices"><label><input type="radio" name="service" value="boat-regular" checked><span>Regular Wash</span></label><label><input type="radio" name="service" value="boat-oneoff"><span>Shine &amp; Protect</span></label></div>
+            <div class="basket-choices"><label><input type="radio" name="interiorService" value="No interior cleaning" checked><span>No interior</span></label><label><input type="radio" name="interiorService" value="Interior clean"><span>Interior refresh</span></label><label><input type="radio" name="interiorService" value="Full interior detail"><span>Full interior detail</span></label></div>
+            <label id="regular-frequency" class="frequency-field">Regular visit frequency<select name="frequency"><option value="Monthly">Monthly</option><option value="Every two months">Every two months</option><option value="Every three months">Every three months</option></select></label>
+          </fieldset>
         </div>
-      </div>
-
-      <form id="booking-form" class="booking-form">
-        <section class="booking-question wizard-step is-active" id="boat-step-type">
-          <div class="booking-step"><span>1</span><h3>What type of boat is it?</h3></div>
-          <input type="hidden" name="vehicleType" id="boat-type" value="">
-          <div class="type-choice-grid boat-type-choices">
-            <label class="type-choice"><input type="radio" name="boatTypeChoice" value="Small boat"><img src="assets/boats/types/small-boat.png" alt="Small boat"><span>Small boats</span></label>
-            <label class="type-choice"><input type="radio" name="boatTypeChoice" value="Sailing yacht"><img src="assets/boats/sizes/sailing-yacht-v3/classic-cruiser-30ft.png" alt="Sailing yacht with its full mast and keel visible"><span>Sailing yacht</span></label>
-            <label class="type-choice"><input type="radio" name="boatTypeChoice" value="Motor yacht"><img src="assets/boats/types/motor-yacht.png" alt="Motor yacht"><span>Motor yacht</span></label>
-            <label class="type-choice"><input type="radio" name="boatTypeChoice" value="Canal boat"><img src="assets/boats/sizes/canal-boat-v2/cruiser-45ft.png" alt="Canal boat"><span>Canal boat</span></label>
+        <div class="booking-basket">
+          <h3>Your booking <span aria-hidden="true">↗</span></h3>
+          <div class="basket-line"><span id="boat-price-service-label">Regular Wash</span><strong id="boat-price-service">£0</strong></div>
+          <div class="basket-line"><span id="boat-interior-label">No interior</span><strong id="boat-price-interior">£0</strong></div>
+          <div class="basket-line"><span>Travel</span><strong id="boat-price-travel">Calculated with location</strong></div>
+          <div class="basket-total"><span>Estimated total</span><strong id="boat-price-total">£0</strong></div>
+          <p class="basket-hint">The price updates with your choices. Travel is added after the location is checked; review the final total before paying £30.</p>
+          <div class="booking-details">
+            <label>Marina or postcode<input name="locationQuery" id="marina-location" list="marina-options" autocomplete="postal-code" placeholder="e.g. Portishead Marina or BS20 7DF" required></label>
+            <datalist id="marina-options"><option value="Portishead Marina"><option value="Bristol Marina"><option value="Bristol Harbour"><option value="Bath Marina"><option value="Saul Marina"><option value="Gloucester Docks"><option value="Cardiff Marina"><option value="Penarth Marina"></datalist>
+            <label>Boat make and model<input id="boat-model" name="model" placeholder="e.g. Princess F55" required></label>
+            <button class="button booking-find" type="button" id="find-boat-dates">Find dates</button>
+            <p id="booking-status" class="booking-status" role="status" aria-live="polite"></p>
+            <div id="boat-booking-fields" hidden>
+              <label>Available date<select name="date" id="boat-date" required></select></label>
+              <div class="booking-two"><label>Your name<input name="name" autocomplete="name" required></label><label>Email for confirmation<input type="email" name="email" autocomplete="email" required></label></div>
+              <label>Phone<input type="tel" name="phone" autocomplete="tel" required></label>
+              <label class="booking-check"><input type="checkbox" required><span>Water and electricity are available at the boat.</span></label>
+              <button class="button booking-submit" type="submit">Pay £30 deposit and reserve</button>
+            </div>
           </div>
-        </section>
-
-        <section class="booking-question wizard-step" id="boat-step-size" hidden>
-          <div class="booking-step"><span>2</span><h3>What length is it?</h3></div>
-          <div class="boat-length-picker">
-          <div class="boat-length-heading">
-            <label for="boat-length">Boat length</label>
-            <output id="boat-length-output" for="boat-length">38 ft</output>
-          </div>
-
-          <div class="boat-length-visual" aria-hidden="true">
-            <img id="classic-boat-size" src="assets/boats/sizes/cruiser/flybridge-cruiser.png" alt="Cruiser">
-          </div>
-
-          <input
-            id="boat-length"
-            class="boat-length-range"
-            name="length"
-            type="range"
-            min="10"
-            max="100"
-            step="1"
-            value="38"
-            required
-          >
-
-          <div class="boat-length-limits" aria-hidden="true">
-            <span>10 ft</span>
-            <span>100 ft</span>
-          </div>
-          </div>
-          <button class="button wizard-next" type="button" id="boat-size-next">Continue</button>
-        </section>
-
-        <section class="booking-question wizard-step" id="boat-step-location" hidden>
-          <div class="booking-step"><span>3</span><h3>Where is the boat?</h3></div>
-          <label>Marina or postcode
-            <input name="locationQuery" id="marina-location" list="marina-options" autocomplete="postal-code" placeholder="e.g. Portishead Marina or BS20 7DF" required>
-            <datalist id="marina-options">
-              <option value="Portishead Marina"></option><option value="Bristol Marina"></option><option value="Bristol Harbour"></option><option value="Portavon Marina"></option><option value="Keynsham Marina"></option><option value="Saltford Marina"></option><option value="Bath Marina"></option><option value="Devizes Marina"></option><option value="Sharpness Marina"></option><option value="Saul Marina"></option><option value="Gloucester Docks"></option><option value="Tewkesbury Marina"></option><option value="Upton Marina"></option><option value="Cardiff Marina"></option><option value="Cardiff Bay Marina"></option><option value="Penarth Marina"></option><option value="Barry Marina"></option><option value="Chepstow Marina"></option>
-            </datalist>
-          </label>
-          <button class="button wizard-next" type="button" id="boat-location-next">Continue</button>
-        </section>
-
-        <section class="booking-question wizard-step" id="boat-step-clean" hidden>
-          <div class="booking-step"><span>4</span><h3>What clean do you need?</h3></div>
-          <div class="booking-two">
-            <label>Cleaning arrangement<select name="service" id="booking-service" required><option value="boat-regular">Regular Wash</option><option value="boat-oneoff">Shine &amp; Protect</option></select></label>
-            <label id="boat-interior-label">Interior cleaning<select name="interiorService" required><option value="No interior cleaning">No interior cleaning</option><option value="Interior clean">Interior clean</option><option value="Full interior detail">Full interior detail</option></select></label>
-          </div>
-          <label id="regular-frequency" style="display: none;">How often would you like regular cleaning?<select name="frequency" disabled><option value="Monthly">Monthly</option><option value="Every two months">Every two months</option><option value="Every three months">Every three months</option></select></label>
-          <label>Boat make and model<input id="boat-model" name="model" placeholder="Enter the make and model" required></label>
-          <button class="button booking-find" type="button" id="find-boat-dates">Show available dates</button>
-          <p id="booking-status" class="booking-status" aria-live="polite"></p>
-        </section>
-
-        <section class="booking-question wizard-step" id="boat-step-book" hidden>
-          <div class="booking-step booking-final-step"><span>5</span><h3>Choose a date and book</h3></div>
-
-        <div id="boat-price" class="boat-price" hidden>
-          <div class="boat-price-row">
-            <span id="boat-price-service-label">Service</span>
-            <strong id="boat-price-service">£0</strong>
-          </div>
-          <div class="boat-price-row" id="boat-price-interior-row">
-            <span>Interior</span>
-            <strong id="boat-price-interior">£0</strong>
-          </div>
-          <div class="boat-price-row" id="boat-price-travel-row">
-            <span>Travel</span>
-            <strong id="boat-price-travel">Included</strong>
-          </div>
-          <div class="boat-price-total">
-            <span>Total cleaning price</span>
-            <strong id="boat-price-total">£0</strong>
-          </div>
-          <small>Only the £30 deposit is charged now. The remaining balance is due after the work.</small>
         </div>
-
-        <div id="boat-booking-fields" hidden>
-          <label>
-            Available date
-            <select name="date" id="boat-date" required></select>
-          </label>
-
-          <div class="booking-two">
-            <label>
-              Your name
-              <input name="name" autocomplete="name" required>
-            </label>
-
-            <label>
-              Email
-              <input type="email" name="email" autocomplete="email" required>
-            </label>
-          </div>
-
-          <label>
-            Phone
-            <input type="tel" name="phone" autocomplete="tel" required>
-          </label>
-
-          <label class="booking-check">
-            <input type="checkbox" required>
-            <span>
-              There is access to water and electricity at the location.
-            </span>
-          </label>
-
-          <div class="booking-total">
-            <span>Due now</span>
-            <strong>£30 deposit</strong>
-          </div>
-
-          <button class="button booking-submit" type="submit">
-            Pay £30 deposit &amp; confirm
-          </button>
-        </div>
-        </section>
       </form>
     </section>
 
@@ -699,14 +575,10 @@
           07794 527 449
         </a>
 
-        <a href="mailto:gus.ferranti@gmail.com">
-          gus.ferranti@gmail.com
-        </a>
       </div>
 
       <form
-        action="https://formsubmit.co/gus.ferranti@gmail.com"
-        method="POST"
+        class="site-enquiry-form"
       >
         <input
           type="hidden"
@@ -770,6 +642,7 @@
         >
           Send request
         </button>
+        <p class="enquiry-status" role="status" aria-live="polite"></p>
       </form>
     </section>
   </main>
@@ -822,6 +695,7 @@
       new Date().getFullYear();
   </script>
   <script src="booking-config.js"></script>
-  <script src="booking.js?v=22"></script>
+  <script src="booking.js?v=23"></script>
+  <script src="enquiry.js?v=1"></script>
 </body>
 </html>

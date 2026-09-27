@@ -1,9 +1,7 @@
-# Booking migration
+# Live booking setup
 
-Harbour Shine now uses the same Google Apps Script booking backend, Google
-Sheet and Google Calendar as Caravan Revival. Stripe remains only for the £30
-deposit. The canonical backend source and setup guide are in the
-`caravan-revival/google-apps-script` directory.
+GitHub Pages publishes this site from the root of the `migrate-github-pages` branch at https://harbourshine.com. Its availability, enquiries, and £30 Stripe deposit use the shared Google Apps Script deployment URL in `booking-config.js`.
 
-After deploying that web app, paste its `/exec` URL into `booking-config.js`.
-The site is then ready to deploy with the included GitHub Pages workflow.
+The Google Apps Script project manages the `Bookings`, `Availability`, and `Enquiries` sheets and the shared Google Calendar. The source is maintained separately in the owner's Google account. Never put Stripe keys or Google credentials in this repository.
+
+Edit the root `index.html`, `booking.js`, or `booking-studio.css` on this branch. The `main` branch is an older site and is not the Pages source.

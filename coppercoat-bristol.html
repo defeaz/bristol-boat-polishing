@@ -429,8 +429,7 @@
       </div>
 
       <form
-        action="https://formsubmit.co/gus.ferranti@gmail.com"
-        method="POST"
+        class="site-enquiry-form"
       >
         <input
           type="hidden"
@@ -497,6 +496,7 @@
         <button class="button button-primary" type="submit">
           Request a quote
         </button>
+        <p class="enquiry-status" role="status" aria-live="polite"></p>
       </form>
     </section>
   </main>
@@ -540,5 +540,7 @@
     document.getElementById('year').textContent =
       new Date().getFullYear();
   </script>
+  <script src="booking-config.js"></script>
+  <script src="enquiry.js?v=1"></script>
 </body>
 </html>
