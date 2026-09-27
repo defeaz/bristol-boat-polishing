@@ -31,18 +31,18 @@ const catalogue = {
     [55,'Flybridge yacht','motor-yacht/flybridge.png'],
     [72,'Motor yacht','motor-yacht/cabin-motor-yacht.png'],
     [90,'Large motor yacht','motor-yacht/large-motor-yacht.png'],
-    [100,'Three-deck motor yacht','superyacht/three-deck-100ft.webp']
+    [100,'Three-deck motor yacht','superyacht/three-deck-100ft-ink.webp']
   ],
   'Canal boat': [
-    [20,'Day boat','canal-boat-v2/day-boat-20ft.png'],
-    [30,'Traditional stern','canal-boat-v2/traditional-30ft.png'],
-    [40,'Cruiser stern','canal-boat-v2/cruiser-45ft.png'],
-    [57,'Liveaboard narrowboat','canal-boat-v2/liveaboard-57ft.png'],
-    [70,'Widebeam canal boat','canal-boat-v2/widebeam-70ft-new.webp']
+    [20,'Day boat','canal-boat-v3/day-20.webp'],
+    [30,'Traditional stern','canal-boat-v3/traditional-30.webp'],
+    [40,'Cruiser stern','canal-boat-v3/cruiser-40.webp'],
+    [57,'Liveaboard narrowboat','canal-boat-v3/liveaboard-57.webp'],
+    [70,'Widebeam canal boat','canal-boat-v3/widebeam-70.webp']
   ]
 };
 // Gradual length-based estimates; changing the slider by one foot never crosses a price bracket.
-const exteriorPrices = [[10,114,350],[20,114,350],[30,130,425],[40,160,500],[50,195,600],[60,240,725],[70,295,875],[80,360,1050],[90,440,1250],[100,520,1500]];
+const exteriorPrices = [[10,180,500],[20,200,530],[30,240,600],[40,300,700],[50,380,840],[60,470,1015],[70,580,1225],[80,710,1470],[90,870,1750],[100,1050,2100]];
 const interiorPrices = [[10,60,180],[20,60,180],[30,70,220],[50,80,250],[70,120,375],[100,160,500]];
 let quote=0, requestVersion=0;
 function interpolate(feet,points,column){
@@ -55,7 +55,7 @@ function interpolate(feet,points,column){
 }
 function boatPrice(feet,service,visitType){
   const base=interpolate(feet,exteriorPrices,service==='boat-regular'?1:2);
-  return Math.round(base*(visitType==='Regular'?.9:1.1));
+  return Math.round(base*(visitType==='Regular'?.7:1));
 }
 function interiorPrice(feet,choice){
   if(choice==='No interior cleaning')return 0;
