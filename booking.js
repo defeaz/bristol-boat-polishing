@@ -66,6 +66,8 @@ function refresh(){
   const feet=Number(boatLength.value), items=catalogue[boatType.value];
   const item=items.reduce((nearest,current)=>Math.abs(current[0]-feet)<Math.abs(nearest[0]-feet)?current:nearest);
   boatImage.src=base+item[2];boatImage.alt=`Representative ${item[1].toLowerCase()} profile`;
+  const canalScale={20:.75,30:.9,40:.78,57:.86,70:1};
+  boatImage.style.transform=`scale(${boatType.value==='Canal boat'?canalScale[item[0]]:1})`;
   document.querySelector('#boat-length-output').textContent=`${feet} ft`;
   document.querySelector('#boat-profile-caption').textContent=item[1];
   boatLength.style.setProperty('--range-progress',`${(feet-Number(boatLength.min))/(Number(boatLength.max)-Number(boatLength.min))*100}%`);
